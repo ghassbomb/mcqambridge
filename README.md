@@ -32,6 +32,12 @@ I’m open to requests!
 
 > git clone https://github.com/ghassbomb/mcqambridge
 >
+> cd mcqambridge
+>
+> python -m venv .
+>
+> . .venv/bin/activate
+>
 > pip install -r requirements.txt
 >
 > python app.py
