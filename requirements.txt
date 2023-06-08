@@ -1,0 +1,7 @@
+Flask
+PyPDF2
+Jinja2
+SQLAlchemy
+requests
+beautifulsoup4
+selenium

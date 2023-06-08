@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	<title>Answer</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/pdf_score.css') }}">
+{% endblock %}
+{% block body %}
+    <h1>PDF Quiz Score</h1>
+    <p>Your score: {{ score }}</p>
+    <p>Total questions: {{ total_questions }}</p>
+    <p>Percentage correct: {{ (score / total_questions) * 100 }}%</p>
+{% endblock %}
