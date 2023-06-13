@@ -1,12 +1,69 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block head %}
+<title>Answer</title>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/main.css') }}"
+/>
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
 
-{% block head %}
-	<title>Answer</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/pdf_score.css') }}">
-{% endblock %}
-{% block body %}
-    <h1>PDF Quiz Score</h1>
-    <p>Your score: {{ score }}</p>
-    <p>Total questions: {{ total_questions }}</p>
-    <p>Percentage correct: {{ (score / total_questions) * 100 }}%</p>
+  th,
+  td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+
+  th {
+    background-color: var(--color-primary);
+    color: white;
+  }
+
+  td.correct {
+    background-color: #4caf50;
+    color: white;
+  }
+
+  td.incorrect {
+    background-color: #f44336;
+    color: white;
+  }
+</style>
+{% endblock %} {% block body %}
+<h1>PDF Quiz Score</h1>
+
+<table>
+  <tr>
+    <th>Your score</th>
+    <th>Total questions</th>
+    <th>Percentage correct</th>
+  </tr>
+  <tr>
+    <td>{{ score }}</td>
+    <td>{{ total_questions }}</td>
+    <td>{{ ((score / total_questions) * 100) | round(2) }}%</td>
+  </tr>
+</table>
+
+<h2>Answers</h2>
+<table>
+  <tr>
+    <th>Question</th>
+    <th>Answer</th>
+    <th>Correct</th>
+  </tr>
+  {% for question, answer, correct in results %}
+  <tr>
+    <td>{{ question }}</td>
+    <td>{{ answer }}</td>
+    <td class="{% if correct %}correct{% else %}incorrect{% endif %}">
+      {% if correct %} Yes {% else %} No {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
 {% endblock %}

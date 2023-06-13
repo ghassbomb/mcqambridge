@@ -1,31 +1,41 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block head %}
+<title>Question Paper</title>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/main.css') }}"
+/>
+{% endblock %} {% block body %}
+<div class="form-container">
+  <form action="/pdf_answers" method="POST" id="answers">
+    <label for="user_answer">Pick your Answer:</label>
+    <input type="hidden" name="question_number" value="{{ question_number }}" />
+    <input type="hidden" name="answers_json" value="{{ answers_json }}" />
+    <input type="hidden" name="score" value="{{ score }}" />
 
-{% block head %}
-    <title>Question Paper</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/pdf.css') }}">
-{% endblock %}
+    <div class="button-container">
+      <button type="submit" name="user_answer" value="a" class="answer-button">
+        A
+      </button>
+      <button type="submit" name="user_answer" value="b" class="answer-button">
+        B
+      </button>
+      <button type="submit" name="user_answer" value="c" class="answer-button">
+        C
+      </button>
+      <button type="submit" name="user_answer" value="d" class="answer-button">
+        D
+      </button>
+    </div>
+  </form>
+  <p>{{ feedback }}</p>
+</div>
 
-{% block body %}
-    <div class="form-container">
-        <form action="/pdf_answers" method="POST" id="answers">
-            <label for="user_answer">Pick your Answer:</label>
-            <input type="hidden" name="question_number" value="{{ question_number }}">
-            <input type="hidden" name="answers_json" value="{{ answers_json }}">
-            <input type="hidden" name="score" value="{{ score }}">
-            
-            <div class="button-container">
-                <button type="submit" name="user_answer" value="a" class="answer-button">A</button>
-                <button type="submit" name="user_answer" value="b" class="answer-button">B</button>
-                <button type="submit" name="user_answer" value="c" class="answer-button">C</button>
-                <button type="submit" name="user_answer" value="d" class="answer-button">D</button>
-            </div>
-        </form>
-        <p>{{ feedback }}</p>  <!-- Display the feedback -->
-    </div>
-    
-    <div id="pdf-container">
-        <div class="pdf-wrapper">
-            <embed src="{{ url_for('serve_pdf', filename='qp.pdf') }}" type="application/pdf" />
-        </div>
-    </div>
+<div id="pdf-container">
+  <div class="pdf-wrapper">
+    <embed
+      src="{{ url_for('serve_pdf', filename='qp.pdf') }}"
+      type="application/pdf"
+    />
+  </div>
+</div>
 {% endblock %}

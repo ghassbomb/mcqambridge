@@ -1,101 +1,152 @@
-{% extends 'base.html' %}
-
-{% block head %}
+{% extends 'base.html' %} {% block head %}
 <title>Homepage</title>
-{% endblock %}
+{% endblock %} {% block body %}
+<h1>Homepage</h1>
+<div class="form-container">
+  <form action="/pdf" method="POST" id="main">
+    <table>
+      <tr>
+        <td>
+          <label for="subject">Subject:</label>
+        </td>
+        <td>
+          <select
+            name="subject"
+            id="subject"
+            onchange="handleSubjectChange(this)"
+          >
+            <optgroup label="Cambridge IGCSE">
+              <option value="Cambridge IGCSE/Economics (0455)">
+                Economics (0455)
+              </option>
+              <option value="Cambridge IGCSE/Biology (0610)">
+                Biology (0610)
+              </option>
+              <option value="Cambridge IGCSE/Chemistry (0620)">
+                Chemistry (0620)
+              </option>
+              <option value="Cambridge IGCSE/Physics (0625)">
+                Physics (0625)
+              </option>
+              <option value="Cambridge IGCSE/Science - Combined (0653)">
+                Science Combined (0653)
+              </option>
+            </optgroup>
+            <optgroup label="A Levels">
+              <option value="A Levels/Biology (9700)">Biology (9700)</option>
+              <option value="A Levels/Chemistry (9701)">
+                Chemistry (9701)
+              </option>
+              <option value="A Levels/Physics (9702)">Physics (9702)</option>
+              <option value="A Levels/Accounting (9706)">
+                Accounting (9706)
+              </option>
+              <option value="A Levels/Economics (9708)">
+                Economics (9708)
+              </option>
+            </optgroup>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="year">Year (2018 - 2023):</label>
+        </td>
+        <td>
+          <input
+            required
+            type="number"
+            name="year"
+            id="year"
+            min="2018"
+            max="2022"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="month">Month:</label>
+        </td>
+        <td>
+          <select name="month" id="month">
+            <option value="m">Feb/March</option>
+            <option value="s">May/June</option>
+            <option value="w">Oct/Nov</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Level:</label>
+        </td>
+        <td>
+          <select name="level" id="level">
+            <option value="1">Core</option>
+            <option value="2">Extended</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="variant">Variant:</label>
+        </td>
+        <td>
+          <select name="variant" id="variant">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <input type="submit" value="Submit" />
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+<script>
+  const form = document.getElementById("main");
+  const subjectSelect = document.getElementById("subject");
+  const levelSelect = document.getElementById("level");
 
-{% block body %}
-	<h1>Homepage</h1>
-	<div class="form-container">
-		<form action="/pdf" method="POST" id="main">
-			<table>
-				<tr>
-					<td>
-						<label for="subject">Subject:</label>
-					</td>
-					<td>
-						<select name="subject" id="subject">
-							<optgroup label="Cambridge IGCSE">
-								<option value="Biology (0610)">Biology (0610)</option>
-								<option value="Chemistry (0620)">Chemistry (0620)</option>
-								<option value="Physics (0625)">Physics (0625)</option>
-							</optgroup>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="year">Year (2018 - 2023):</label>
-					</td>
-					<td>
-						<input required type="number" name="year" id="year" min="2018" max="2022">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="month">Month:</label>
-					</td>
-					<td>
-						<select name="month" id="month">
-							<option value="m">Feb/March</option>
-							<option value="s">May/June</option>
-							<option value="w">Oct/Nov</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label>Level:</label>
-					</td>
-					<td>
-						<div class="form-check">
-							<input class="form-check-input" type="radio" name="level" value="1">
-							<label class="form-check-label" for="level">Core</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input" type="radio" name="level" value="2" checked>
-							<label class="form-check-label" for="level">Extended</label>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="variant">Variant:</label>
-					</td>
-					<td>
-						<select name="variant" id="variant">
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<input type="submit" value="Submit">
-					</td>
-				</tr>
-			</table>
-		</form>
-	</div>
-	<script>
-		const form = document.getElementById("main");
-		form.onsubmit = (e) => {
-			let variant = e.target.variant.value;
-			let month = e.target.month.value;
-			if (variant !== '2' && month === 'm') {
-				reportError("There are only variant 2's during February/March!");
-				e.target.variant.value = '2';
-				return false;
-			}
-		}
+  form.onsubmit = (e) => {
+    let variant = e.target.variant.value;
+    let month = e.target.month.value;
+    let subject = e.target.subject.value;
+    let year = e.target.year.value;
 
-		function reportError(message) {
-			const errorDiv = document.createElement("div");
-			errorDiv.classList.add("error-message");
-			errorDiv.textContent = message;
-			const formContainer = document.querySelector(".form-container");
-			formContainer.appendChild(errorDiv);
-		}
-	</script>
+    if (variant !== "2" && month === "m") {
+      reportError("There are only variant 2's during February/March!");
+      e.target.variant.value = "2";
+      return false;
+    }
+  };
+
+  function reportError(message) {
+    const errorDiv = document.createElement("div");
+    errorDiv.classList.add("error-message");
+    errorDiv.textContent = message;
+    const formContainer = document.querySelector(".form-container");
+    formContainer.appendChild(errorDiv);
+  }
+
+  function handleSubjectChange(selectElement) {
+    const selectedSubject = selectElement.value;
+
+    if (
+      selectedSubject !== "Cambridge IGCSE/Physics (0625)" &&
+      selectedSubject !== "Cambridge IGCSE/Chemistry (0620)" &&
+      selectedSubject !== "Cambridge IGCSE/Biology (0610)" &&
+      selectedSubject !== "Cambridge IGCSE/Science - Combined (0653)"
+    ) {
+      levelSelect.value = "1";
+      levelSelect.disabled = true;
+    } else {
+      levelSelect.disabled = false;
+    }
+  }
+  handleSubjectChange(subjectSelect);
+</script>
 {% endblock %}
