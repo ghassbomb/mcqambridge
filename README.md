@@ -4,7 +4,7 @@ MCQambridge is an automated MCQ past paper solving application for Cambridge A-l
 
 ## Installation & Usage
 
-1. Clone the repository with: `   git clone https://github.com/ghassbomb/mcqambridge.git`
+1. Clone the repository with: `git clone https://github.com/ghassbomb/mcqambridge.git`
 2. Change into the project directory: `cd mcqambridge`
 3. Install the required dependencies using pip: `pip install -r requirements.txt`
 4. Start the Flask development server: `python app.py`

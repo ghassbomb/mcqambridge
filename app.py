@@ -4,26 +4,26 @@ import os
 from PyPDF2 import PdfReader
 import re
 
+
+# Creates flask app
 app = Flask(__name__)
 
+# Dictionary used to track users answers to a paper
+answers = {}
 
 def extract_answers(ms):
-    """Takes the marking scheme as a parameter, goes through it, and stores all its contents in a string."""
+    """Takes the marking scheme as a parameter, goes through it, and stores all its contents in a 'dump'."""
     answers = ''
     with open(ms, 'rb') as file:
         reader = PdfReader(file)
-
         for pageno in range(1, len(reader.pages)):
-            page = reader.pages[pageno]
-            text = page.extract_text()
-            answers += text
-
+            answers += (reader.pages[pageno]).extract_text()
     return answers
 
 
 def ans_filter(raw):
-    """Takes the string generated in extract_answers() and filters it to extract all MCQ answers in a list (by extracting all individual letters)"""
-    raw_list = re.findall("[a-zA-Z]+", raw)
+    """Takes the dump generated in extract_answers() and filters it to extract all MCQ answers in a list (by extracting all individual letters)"""
+    raw_list = re.findall(r'\b[A-D]\b', raw)
     lst = [x for x in raw_list if len(x) == 1]
     return lst
 
@@ -34,7 +34,7 @@ def download_pdfs(subj, year, month, variant, ce):
     flag = False
     root_dir = os.getcwd()
 
-    # Extracts subject code from subject
+    # Extracts subj_code from subj
     for char in subj:
         if char == '(':
             flag = True
@@ -43,12 +43,14 @@ def download_pdfs(subj, year, month, variant, ce):
             flag = False
         if flag == True:
             subj_code += char
+    
+    # Levels/CE is sometimes returned as 'None' when the user changes the value in the form, but then switches to a subject for which it is not available
     if ce == None:
         ce = 1
 
+    # Creates a URL based on the given variables to gceguide.com and downloads the marking scheme and question paper
     url_ms = f"https://papers.gceguide.com/{subj}/{year}/{subj_code}_{month}{str(year)[2:4]}_ms_{ce}{variant}.pdf"
     url_qp = f"https://papers.gceguide.com/{subj}/{year}/{subj_code}_{month}{str(year)[2:4]}_qp_{ce}{variant}.pdf"
-    print(url_ms, url_qp)
     r = requests.get(url_qp, allow_redirects=True)
     open(os.path.join(root_dir, 'static', 'pdf', 'qp.pdf'), 'wb').write(r.content)
     r = requests.get(url_ms, allow_redirects=True)
@@ -58,7 +60,6 @@ def download_pdfs(subj, year, month, variant, ce):
 @app.route("/")
 def index():
     return render_template('index.html')
-
 
 @app.route("/pdf", methods=['POST', 'GET'])
 def pdf_display():
@@ -75,6 +76,7 @@ def pdf_display():
         download_pdfs(subj, year, month, variant, ce)
         raw_mess = extract_answers('static/pdf/ms.pdf')
         answers = ans_filter(raw_mess)
+        print(answers)
 
         question_number = 0
         score = 0  # Initialize the score to 0
@@ -95,7 +97,8 @@ def pdf_answers():
     # Load the correct answers from the marking scheme
     raw_mess = extract_answers('static/pdf/ms.pdf')
     correct_answers = ans_filter(raw_mess)
-    print(user_answer)
+
+    answers[question_number] = user_answer
     # Compare user's answer with the correct answer
     if user_answer.lower() == correct_answers[question_number].lower():
         # Correct answer
@@ -110,8 +113,7 @@ def pdf_answers():
 
     if next_question_number >= len(correct_answers):
         # The user has answered all the questions
-        return render_template('pdf_score.html', score=score, total_questions=len(correct_answers))
-    print(score)
+        return render_template('pdf_score.html', score=score, total_questions=len(correct_answers), answers=answers, correct_answers=correct_answers)
     return render_template('pdf.html', question_number=next_question_number, answers=correct_answers, score=score, feedback=feedback)
 
 

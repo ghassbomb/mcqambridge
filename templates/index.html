@@ -1,110 +1,60 @@
 {% extends 'base.html' %} {% block head %}
-<title>Homepage</title>
+<title>Paper Selection</title>
 {% endblock %} {% block body %}
-<h1>Homepage</h1>
-<div class="form-container">
+<div class="main-form center">
+  <div class="main-form-title"><a href="/">Select Your Paper!</a></div>
   <form action="/pdf" method="POST" id="main">
-    <table>
-      <tr>
-        <td>
-          <label for="subject">Subject:</label>
-        </td>
-        <td>
-          <select
-            name="subject"
-            id="subject"
-            onchange="handleSubjectChange(this)"
-          >
-            <optgroup label="Cambridge IGCSE">
-              <option value="Cambridge IGCSE/Economics (0455)">
-                Economics (0455)
-              </option>
-              <option value="Cambridge IGCSE/Biology (0610)">
-                Biology (0610)
-              </option>
-              <option value="Cambridge IGCSE/Chemistry (0620)">
-                Chemistry (0620)
-              </option>
-              <option value="Cambridge IGCSE/Physics (0625)">
-                Physics (0625)
-              </option>
-              <option value="Cambridge IGCSE/Science - Combined (0653)">
-                Science Combined (0653)
-              </option>
-            </optgroup>
-            <optgroup label="A Levels">
-              <option value="A Levels/Biology (9700)">Biology (9700)</option>
-              <option value="A Levels/Chemistry (9701)">
-                Chemistry (9701)
-              </option>
-              <option value="A Levels/Physics (9702)">Physics (9702)</option>
-              <option value="A Levels/Accounting (9706)">
-                Accounting (9706)
-              </option>
-              <option value="A Levels/Economics (9708)">
-                Economics (9708)
-              </option>
-            </optgroup>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="year">Year (2018 - 2023):</label>
-        </td>
-        <td>
-          <input
-            required
-            type="number"
-            name="year"
-            id="year"
-            min="2018"
-            max="2022"
-          />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="month">Month:</label>
-        </td>
-        <td>
-          <select name="month" id="month">
-            <option value="m">Feb/March</option>
-            <option value="s">May/June</option>
-            <option value="w">Oct/Nov</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label>Level:</label>
-        </td>
-        <td>
-          <select name="level" id="level">
-            <option value="1">Core</option>
-            <option value="2">Extended</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="variant">Variant:</label>
-        </td>
-        <td>
-          <select name="variant" id="variant">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <input type="submit" value="Submit" />
-        </td>
-      </tr>
-    </table>
+    <div class="main-form-message">
+      Papers are downloaded from
+      <a href="https://gceguide.com">gceguide.com</a>. If an error is given,
+      make sure to first check if the paper is available on the site before
+      opening an issue.
+    </div>
+    <div class="main-form-label">Subject:</div>
+    <select name="subject" id="subject" onchange="handleSubjectChange(this)">
+      <optgroup label="Cambridge IGCSE">
+        <option value="Cambridge IGCSE/Economics (0455)">
+          Economics (0455)
+        </option>
+        <option value="Cambridge IGCSE/Biology (0610)">Biology (0610)</option>
+        <option value="Cambridge IGCSE/Chemistry (0620)">
+          Chemistry (0620)
+        </option>
+        <option value="Cambridge IGCSE/Physics (0625)">Physics (0625)</option>
+        <option value="Cambridge IGCSE/Science - Combined (0653)">
+          Science Combined (0653)
+        </option>
+      </optgroup>
+      <optgroup label="A Levels">
+        <option value="A Levels/Biology (9700)">Biology (9700)</option>
+        <option value="A Levels/Chemistry (9701)">Chemistry (9701)</option>
+        <option value="A Levels/Physics (9702)">Physics (9702)</option>
+        <option value="A Levels/Accounting (9706)">Accounting (9706)</option>
+        <option value="A Levels/Economics (9708)">Economics (9708)</option>
+      </optgroup>
+    </select>
+    <div class="main-form-label">Year (2018 - 2022):</div>
+    <input required type="number" name="year" id="year" min="2018" max="2022" />
+    <div class="main-form-label">Month:</div>
+    <select name="month" id="month">
+      <option value="m">Feb/March</option>
+      <option value="s">May/June</option>
+      <option value="w">Oct/Nov</option>
+    </select>
+    <div class="main-form-label">Level:</div>
+    <select name="level" id="level">
+      <option value="1">Core</option>
+      <option value="2">Extended</option>
+    </select>
+    <div class="main-form-label">Variant:</div>
+    <select name="variant" id="variant">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+    </select>
+    <div><input type="submit" value="Submit!" /></div>
   </form>
+  <strong><div class="form-container"></div></strong>
 </div>
 <script>
   const form = document.getElementById("main");
@@ -118,7 +68,7 @@
     let year = e.target.year.value;
 
     if (variant !== "2" && month === "m") {
-      reportError("There are only variant 2's during February/March!");
+      reportError("Only variant 2's are available in the months of Feb/March!");
       e.target.variant.value = "2";
       return false;
     }
