@@ -72,6 +72,11 @@
       e.target.variant.value = "2";
       return false;
     }
+    if (year === '2022' && month==='w') {
+      reportError("Only Feb/March and May/June are available for 2022 on gceguide.com currently!")
+      e.target.month.value = 's';
+      return false;
+    }
   };
 
   function reportError(message) {

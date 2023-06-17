@@ -243,4 +243,10 @@ tbody tr.active-row {
   color: red;
   text-transform: uppercase;
 }
+footer {
+  border-top: 1px solid var(--color-border);
+  margin: 0 auto;
+  padding: 20px;
+  width: 60%;  
+}
 
