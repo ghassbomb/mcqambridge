@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -13,9 +13,11 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/fonts.css') }}"
     />
-  {% block head %}{% endblock %}
-  {% block body %}{% endblock %}
-  <footer>
-    <a href="https://github.com/ghassbomb/mcqambridge">Source</a> ·
-    <a href="https://github.com/ghassbomb/">My Github</a> ·
-    <a href="https://ghassbomb.github.io/">My Blog</a>
+    {% block head %}{% endblock %} {% block body %}{% endblock %}
+    <footer>
+      <a href="https://github.com/ghassbomb/mcqambridge">Source</a> ·
+      <a href="https://github.com/ghassbomb/">My Github</a> ·
+      <a href="https://ghassbomb.github.io/">My Blog</a>
+    </footer>
+  </head>
+</html>

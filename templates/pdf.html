@@ -1,38 +1,40 @@
-{% extends 'base.html' %} {% block head %}
+{% extends 'base.html' %}
+
+{% block head %}
 <title>Questions</title>
-{% endblock %} {% block body %}
-  <div class="answer-form-title"><a href="/">Question {{ question_number+1 }}</a></div>
+{% endblock %}
 
-  <form action="/pdf_answers" method="POST" id="answers">
-    <input type="hidden" name="question_number" value="{{ question_number }}" />
-    <input type="hidden" name="answers_json" value="{{ answers_json }}" />
-    <input type="hidden" name="score" value="{{ score }}" />
-    <button type="submit" name="user_answer" value="A" class="answer-button">
-      A
-    </button>
-    <button type="submit" name="user_answer" value="B" class="answer-button">
-      B
-    </button>
-    <button type="submit" name="user_answer" value="C" class="answer-button">
-      C
-    </button>
-    <button type="submit" name="user_answer" value="D" class="answer-button">
-      D
-    </button>
-  </form>
-  {% if feedback == 'Incorrect.' %}
-    <strong><p id="feedback" style="color: red">{{ feedback }}</p></strong>
-  {% else %}
-    <strong><p id="feedback" style="color: greenyellow">{{ feedback }}</p>  </strong>
-  {% endif %}
+{% block body %}
+<div class="answer-form-title">
+  <a href="/">Question {{ question_number+1 }}</a>
+</div>
 
+<form action="/pdf_answers" method="POST" id="answers">
+  <input type="hidden" name="question_number" value="{{ question_number }}" />
+  <input type="hidden" name="answers_json" value="{{ answers_json }}" />
+  <input type="hidden" name="score" value="{{ score }}" />
+  <input type="hidden" name="pdf_link" value="{{ pdf_link }}" />
+  <button type="submit" name="user_answer" value="A" class="answer-button">
+    A
+  </button>
+  <button type="submit" name="user_answer" value="B" class="answer-button">
+    B
+  </button>
+  <button type="submit" name="user_answer" value="C" class="answer-button">
+    C
+  </button>
+  <button type="submit" name="user_answer" value="D" class="answer-button">
+    D
+  </button>
+</form>
 
-  <div id="pdf-container">
-    <div class="pdf-wrapper">
-      <embed
-        src="{{ url_for('serve_pdf', filename='qp.pdf') }}"
-        type="application/pdf"
-      />
-    </div>
-  </div>
+{% if feedback == 'Incorrect.' %}
+<strong><p id="feedback" style="color: red">{{ feedback }}</p></strong>
+{% else %}
+<strong><p id="feedback" style="color: greenyellow">{{ feedback }}</p> </strong>
+{% endif %}
+
+<div class="pdf-viewer">
+  <iframe src="{{ pdf_link }}" frameborder="0" scrolling="no"></iframe>
+</div>
 {% endblock %}
