@@ -13,11 +13,16 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/fonts.css') }}"
     />
-    {% block head %}{% endblock %} {% block body %}{% endblock %}
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <header>{% block header %}{% endblock %}</header>
+    <article>{% block article %}{% endblock %}</article>
     <footer>
       <a href="https://github.com/ghassbomb/mcqambridge">Source</a> ·
       <a href="https://github.com/ghassbomb/">My Github</a> ·
       <a href="https://ghassbomb.github.io/">My Blog</a>
+      {% block footer %} {% endblock %}
     </footer>
-  </head>
+  </body>
 </html>
