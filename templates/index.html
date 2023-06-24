@@ -25,6 +25,15 @@
           Science Combined (0653)
         </option>
       </optgroup>
+      <optgroup label="O Levels">
+        <option value="O Levels/Economics (2281)">Economics (2281)</option>
+        <option value="O Levels/Physics (5054)">Physics (5054)</option>
+        <option value="O Levels/Chemistry (5070)">Chemistry (5070)</option>
+        <option value="O Levels/Biology (5090)">Biology (5090)</option>
+        <option value="O Levels/Science - Combined (5129)">
+          Science Combined (5129)
+        </option>
+      </optgroup>
       <optgroup label="A Levels">
         <option value="A Levels/Biology (9700)">Biology (9700)</option>
         <option value="A Levels/Chemistry (9701)">Chemistry (9701)</option>
@@ -79,6 +88,54 @@
       e.target.month.value = "s";
       return false;
     }
+    if (
+      subject === "O Levels/Biology (5090)" ||
+      subject === "O Levels/Chemistry (5070)" ||
+      subject === "O Levels/Physics (5054)" ||
+      subject === "O Levels/Science - Combined (5129)" ||
+      subject === "O Levels/Economics (2281)" ||
+      month === "m"
+    ) {
+      reportError("O level subjects do not have Feb/March papers.");
+      return false;
+    }
+    if (
+      subject === "O Levels/Biology (5090)" ||
+      subject === "O Levels/Chemistry (5070)" ||
+      subject === "O Levels/Physics (5054)" ||
+      subject === "O Levels/Science - Combined (5129)" ||
+      subject === "O Levels/Economics (2281)" ||
+      month === "s" &&
+      variant === "3"
+    ) {
+      reportError("O level subjects do not have variant 3's in May/June.");
+      return false;
+    }
+    if (
+      subject === "O Levels/Biology (5090)" ||
+      subject === "O Levels/Chemistry (5070)" ||
+      subject === "O Levels/Physics (5054)" ||
+      subject === "O Levels/Science - Combined (5129)" ||
+      subject === "O Levels/Economics (2281)" ||
+      month === "w" &&
+      variant === "1"
+    ) {
+      reportError("O level subjects do not have variant 1's in Oct/Nov.");
+      return false;
+    }
+    if (
+      subject === "O Levels/Biology (5090)" ||
+      subject === "O Levels/Chemistry (5070)" ||
+      subject === "O Levels/Physics (5054)" ||
+      subject === "O Levels/Science - Combined (5129)" ||
+      month === "w" &&
+      variant === "3"
+    ) {
+      reportError(
+        "O level science subjects do not have variant 3's in Oct/Nov."
+      );
+      return false;
+    }
   };
 
   function reportError(message) {
@@ -96,7 +153,11 @@
       selectedSubject !== "Cambridge IGCSE/Physics (0625)" &&
       selectedSubject !== "Cambridge IGCSE/Chemistry (0620)" &&
       selectedSubject !== "Cambridge IGCSE/Biology (0610)" &&
-      selectedSubject !== "Cambridge IGCSE/Science - Combined (0653)"
+      selectedSubject !== "Cambridge IGCSE/Science - Combined (0653)" &&
+      selectedSubject !== "O Levels/Biology (5090)" &&
+      selectedSubject !== "O Levels/Chemistry (5070)" &&
+      selectedSubject !== "O Levels/Physics (5054)" &&
+      selectedSubject !== "O Levels/Science - Combined (5129)"
     ) {
       levelSelect.value = "1";
       levelSelect.disabled = true;

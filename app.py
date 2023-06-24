@@ -9,6 +9,7 @@ import re
 app = Flask(__name__)
 answers = {}
 
+
 def extract_answers(ms):
     """Takes the marking scheme as a parameter, goes through it, and stores all its contents in a 'dump'."""
     answers = ''
@@ -25,6 +26,7 @@ def ans_filter(raw):
     lst = [x for x in raw_list if len(x) == 1]
     return lst
 
+
 def download_pdfs(subj, year, month, variant, ce):
     """Takes the inputs from the forms on the homepage and uses them to download the corresponding question paper and marking scheme."""
     subj_code = ''
@@ -40,7 +42,7 @@ def download_pdfs(subj, year, month, variant, ce):
             flag = False
         if flag == True:
             subj_code += char
-    
+
     # Levels/CE is sometimes returned as 'None' when the user changes the value in the form, but then switches to a subject for which it is not available
     if ce is None:
         ce = 1
@@ -112,6 +114,7 @@ def pdf_answers():
         # The user has answered all the questions
         return render_template('pdf_score.html', score=score, total_questions=len(correct_answers), answers=answers, correct_answers=correct_answers)
     return render_template('pdf.html', question_number=next_question_number, answers=correct_answers, score=score, feedback=feedback, pdf_link=pdf_link)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

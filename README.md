@@ -29,7 +29,14 @@ Currently, MCQambridge supports the following subjects:
   - Chemistry (0620)
   - Physics (0625)
   - Science Combined (0653)
-  
+
+- **O-Levels**
+  - Economics (2281)
+  - Physics (5054)
+  - Chemistry (5070)
+  - Biology (5090)
+  - Science Combined (5129)
+
 - **A-Levels**
   - Biology (9700)
   - Chemistry (9701)
@@ -37,9 +44,9 @@ Currently, MCQambridge supports the following subjects:
   - Accounting (9706)
   - Economics (9708)
 
-But the framework for processing other subjects and years is there, and I intend to add all subjects possible (after I’m done fixing the existing selection). Note that **not all subjects or papers may work**. If there is an error, see the [contribution](#contributions) section for reporting it.
+But the framework for processing other subjects and years is there, and I intend to add all subjects possible (after I’m done fixing the existing selection). Note that **not all subjects or papers may work**. If there is an error, see the [contributions](#contributions) section for reporting it.
 
-## Contributing
+## Contributions
 
 Contributions are welcome! If you have any suggestions, improvements, or bug fixes, please create a pull request. For major changes, please open an issue to discuss the changes beforehand. You can also contact me at `ghass.shahzad@gmail.com` for any requests and such, but you should ideally open an issue.
 
