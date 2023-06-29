@@ -70,6 +70,15 @@
   const subjectSelect = document.getElementById("subject");
   const levelSelect = document.getElementById("level");
 
+  async function checkPdfUrl(url) {
+    try {
+      const response = await fetch(url, { method: "HEAD" });
+      return response.ok;
+    } catch (error) {
+      return false;
+    }
+  }
+
   form.onsubmit = (e) => {
     let variant = e.target.variant.value;
     let month = e.target.month.value;
@@ -93,8 +102,7 @@
       subject === "O Levels/Chemistry (5070)" ||
       subject === "O Levels/Physics (5054)" ||
       subject === "O Levels/Science - Combined (5129)" ||
-      subject === "O Levels/Economics (2281)" &&
-      month === "m"
+      (subject === "O Levels/Economics (2281)" && month === "m")
     ) {
       reportError("O level subjects do not have Feb/March papers.");
       return false;
@@ -104,9 +112,9 @@
       subject === "O Levels/Chemistry (5070)" ||
       subject === "O Levels/Physics (5054)" ||
       subject === "O Levels/Science - Combined (5129)" ||
-      subject === "O Levels/Economics (2281)" &&
-      month === "s" &&
-      variant === "3"
+      (subject === "O Levels/Economics (2281)" &&
+        month === "s" &&
+        variant === "3")
     ) {
       reportError("O level subjects do not have variant 3's in May/June.");
       return false;
@@ -116,9 +124,9 @@
       subject === "O Levels/Chemistry (5070)" ||
       subject === "O Levels/Physics (5054)" ||
       subject === "O Levels/Science - Combined (5129)" ||
-      subject === "O Levels/Economics (2281)" &&
-      month === "w" &&
-      variant === "1"
+      (subject === "O Levels/Economics (2281)" &&
+        month === "w" &&
+        variant === "1")
     ) {
       reportError("O level subjects do not have variant 1's in Oct/Nov.");
       return false;
@@ -127,15 +135,25 @@
       subject === "O Levels/Biology (5090)" ||
       subject === "O Levels/Chemistry (5070)" ||
       subject === "O Levels/Physics (5054)" ||
-      subject === "O Levels/Science - Combined (5129)" &&
-      month === "w" &&
-      variant === "3"
+      (subject === "O Levels/Science - Combined (5129)" &&
+        month === "w" &&
+        variant === "3")
     ) {
       reportError(
         "O level science subjects do not have variant 3's in Oct/Nov."
       );
       return false;
     }
+    checkPdfUrl({{ pdf_url }})
+      .then((exists) => {
+        if (exists) {
+          pass
+        } else {
+          reportError("The PDF file is not available; please check the gceguide.com website to see if this is an error on this sites' side.")
+          return false;
+        }
+      })
+      return false;
   };
 
   function reportError(message) {
