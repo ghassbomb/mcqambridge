@@ -1,20 +1,20 @@
 # MCQambridge
 
-MCQambridge is an automated MCQ past paper solving application for Cambridge A-levels & IGCSE. I created this app to save myself the tedious ‘problem’ of having to check my answers between the question paper and marking scheme, counting scores, and calculating percentages. I’ve now expanded it to include a large amount of [subjects](#Subjects) and plan to expand it [further](#features). For now, the app is pretty barebones. You can select your paper, solve it, and you get the results. I plan to add creature comforts soon enough. 
+MCQambridge is an automated MCQ past paper solving application for Cambridge A-levels & IGCSE. I created this app to save myself the tedious ‘problem’ of having to check my answers between the question paper and marking scheme, counting scores, and calculating percentages. I’ve now expanded it to include a large amount of [subjects](#Subjects) and plan to expand it [further](#features).
 
 ## Installation & Usage
 
 1. Clone the repository with: `git clone https://github.com/ghassbomb/mcqambridge.git`
 2. Change into the project directory: `cd mcqambridge`
-3. Install the required dependencies using pip: `pip install -r requirements.txt`
-4. Start the Flask development server: `python app.py`
-5. Enjoy!
+3. Create a virtualenv environment (optional)
+4. Install the required dependencies using pip: `pip install -r requirements.txt`
+5. Start the Flask development server: `python app.py`
+6. Enjoy!
 
 ## Features
 
 MCQambridge is pretty barebones currently. You select your paper, answer questions, and are presented with your score and percentage. I intend to add:
 
-- Statistics and tracking for your results
 - AI integration
 
 I’m open to requests for features!
