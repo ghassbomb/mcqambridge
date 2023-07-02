@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Statistics</title>
+{% endblock %}
+{% block article %}
+    <h1 style="text-align: center;"> <a href="/">Statistics</a></h1>
+    <div id="stats">
+        <table>
+            <thead>
+                <tr>
+                    <th>Paper</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for paper in papers %}
+                <tr>
+                    <th>{{ paper }}</th>
+                    <th>{{ papers[paper] }}%</th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

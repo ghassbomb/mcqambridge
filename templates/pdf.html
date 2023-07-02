@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block head %}
-<title>Questions</title>
+<title>{{ paper_name }}</title>
 {% endblock %} {% block article %}
 <div class="answer-form-title">
   <a href="/">Question {{ question_number+1 }}</a>
@@ -10,6 +10,7 @@
   <input type="hidden" name="answers_json" value="{{ answers_json }}" />
   <input type="hidden" name="score" value="{{ score }}" />
   <input type="hidden" name="pdf_link" value="{{ pdf_link }}" />
+  <input type="hidden" name="paper_name" value="{{ paper_name }}" />
   <button type="submit" name="user_answer" value="A" class="answer-button">
     A
   </button>

@@ -144,16 +144,6 @@
       );
       return false;
     }
-    checkPdfUrl({{ pdf_url }})
-      .then((exists) => {
-        if (exists) {
-          pass
-        } else {
-          reportError("The PDF file is not available; please check the gceguide.com website to see if this is an error on this sites' side.")
-          return false;
-        }
-      })
-      return false;
   };
 
   function reportError(message) {
