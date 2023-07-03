@@ -1,26 +1,49 @@
 {% extends 'base.html' %}
 {% block head %}
 <title>Statistics</title>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+<style>
+    * {
+        color: #ebdbb2;
+    }
+    td {
+        color: #282828;
+    }
+    #statistics-table_info {
+        color: #fe8019;
+    }
+</style>
 {% endblock %}
 {% block article %}
-    <h1 style="text-align: center;"> <a href="/">Statistics</a></h1>
-    <div id="stats">
-        <table>
-            <thead>
-                <tr>
-                    <th>Paper</th>
-                    <th>Score</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for paper in papers %}
-                <tr>
-                    <th>{{ paper }}</th>
-                    <th>{{ papers[paper] }}%</th>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+<h1 style="text-align: center;"><a href="/">Statistics</a></h1>
+<div id="stats">
+    <table id="statistics-table" class="statistics-table-class">
+        <thead>
+            <tr>
+                <th>Paper</th>
+                <th>Score</th>
+                <th>Subject</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for paper in papers %}
+            {% set subject_code = paper.split('_')[0] %}
+            {% set subject_name = subject_mapping[subject_code] %}
+            <tr>
+                <td>{{ paper }}</td>
+                <td>{{ papers[paper] }}</td>
+                <td>{{ subject_name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#statistics-table').DataTable();
+    });
+</script>
 {% endblock %}

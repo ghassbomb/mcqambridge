@@ -10,6 +10,23 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 answers = {}
 papers = {}
+subject_mapping = {
+    '0455': 'IGCSE Economics',
+    '0610': 'IGCSE Biology',
+    '0620': 'IGCSE Chemistry',
+    '0625': 'IGCSE Physics',
+    '0653': 'IGCSE Science Combined',
+    '2281': 'O Level Economics',
+    '5054': 'O Level Physics',
+    '5070': 'O Level Chemistry',
+    '5090': 'O Level Biology',
+    '5129': 'O Level Science Combined',
+    '9700': 'A Level Biology',
+    '9701': 'A Level Chemistry',
+    '9702': 'A Level Physics',
+    '9706': 'A Level Accounting',
+    '9708': 'A LevelEconomics'
+}
 
 
 def extract_answers(ms):
@@ -161,7 +178,8 @@ def statistics():
     papers_json = request.cookies.get('papers_scores')
     papers = json.loads(papers_json) if papers_json else {}
 
-    return render_template('statistics.html', papers=papers)
+
+    return render_template('statistics.html', papers=papers, subject_mapping=subject_mapping)
 
 
 if __name__ == '__main__':
