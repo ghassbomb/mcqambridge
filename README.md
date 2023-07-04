@@ -1,13 +1,15 @@
 <p align="center"><img width=80% src="./static/images/banner.png"></p>
 
 <p align=“center”>
-![Python](https://img.shields.io/badge/python-v3.9+-blue.svg) ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg) [![GitHub Issues](https://img.shields.io/github/issues/ghassbomb/mcqambridge.svg)](https://github.com/ghassbomb/mcqambridge/issues) ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+<img alt="Static Badge" src="https://img.shields.io/badge/python-v3.9%2B-blue?style=for-the-badge">
+<img alt="Static Badge" src="https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen?style=for-the-badge">
+<img alt="GitHub issues" src="https://img.shields.io/github/issues/ghassbomb/mcqambridge?style=for-the-badge&link=https%3A%2F%2Fgithub.com%2Fghassbomb%2Fmcqambridge%2Fissues">
+<a href="https://opensource.org/licenses/MIT)"><img alt="Static Badge" src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge"></a>
 </p>
 
 ## Overview
 MCQambridge is an automated MCQ past paper solving application for Cambridge A-levels & IGCSE.
-
-1.png
+<img alt="preview" src="./static/images/1.png">
 
 ## Installation & Usage
 
