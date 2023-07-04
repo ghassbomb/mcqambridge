@@ -1,6 +1,13 @@
-# MCQambridge
+<p align="center"><img width=80% src="./static/images/banner.png"></p>
 
-MCQambridge is an automated MCQ past paper solving application for Cambridge A-levels & IGCSE. I created this app to save myself the tedious ‘problem’ of having to check my answers between the question paper and marking scheme, counting scores, and calculating percentages. I’ve now expanded it to include a large amount of [subjects](#Subjects) and plan to expand it [further](#features).
+<p align=“center”>
+![Python](https://img.shields.io/badge/python-v3.9+-blue.svg) ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg) [![GitHub Issues](https://img.shields.io/github/issues/ghassbomb/mcqambridge.svg)](https://github.com/ghassbomb/mcqambridge/issues) ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+</p>
+
+## Overview
+MCQambridge is an automated MCQ past paper solving application for Cambridge A-levels & IGCSE.
+
+1.png
 
 ## Installation & Usage
 
@@ -12,39 +19,39 @@ MCQambridge is an automated MCQ past paper solving application for Cambridge A-l
 6. Enjoy!
 
 ## Features
+Paper selector with options for:
+- Subject
+- Year (2018-)
+- Month
+- Level (core/extended)
+- Variant
 
-MCQambridge is pretty barebones currently. You select your paper, answer questions, and are presented with your score and percentage. I intend to add:
-
-- AI integration
-
-I’m open to requests for features!
-
-### Subjects
+Score calculation and an answer view where you can see all your answers—right or wrong. Statistics to keep track of the papers you’ve completed and the scores you’ve gotten.
 
 Currently, MCQambridge supports the following subjects:
 
 - **IGCSE**
-  - Economics (0455)
-  - Biology (0610)
-  - Chemistry (0620)
-  - Physics (0625)
-  - Science Combined (0653)
+	- Economics (0455)
+	- Biology (0610)
+	- Chemistry (0620)
+	- Physics (0625)
+	- Science Combined (0653)
 
 - **O-Levels**
-  - Economics (2281)
-  - Physics (5054)
-  - Chemistry (5070)
-  - Biology (5090)
-  - Science Combined (5129)
+	- Economics (2281)
+	- Physics (5054)
+	- Chemistry (5070)
+	- Biology (5090)
+	- Science Combined (5129)
 
 - **A-Levels**
-  - Biology (9700)
-  - Chemistry (9701)
-  - Physics (9702)
-  - Accounting (9706)
-  - Economics (9708)
+	- Biology (9700)
+	- Chemistry (9701)
+	- Physics (9702)
+	- Accounting (9706)
+	- Economics (9708)
 
-But the framework for processing other subjects and years is there, and I intend to add all subjects possible (after I’m done fixing the existing selection). Note that **not all subjects or papers may work**. If there is an error, see the [contributions](#contributions) section for reporting it.
+*Note that **not all subjects or papers may work**. If there is an error, see the [contributions](#contributions) section for reporting it.*
 
 ## Contributions
 
