@@ -1,18 +1,77 @@
-<p align="center"><img width=80% src="./static/images/banner.png"></p>
+<h1 align="center">
+  <a href="https://github.com/ghassbomb/mcqambridge">
+    <!-- Please provide path to your logo here -->
+    <img src="docs/images/logo.svg" alt="Logo" width="100" height="100">
+  </a>
+</h1>
 
-<p style="text-align:center;">
-<img alt="Static Badge" src="https://img.shields.io/badge/python-v3.9%2B-blue?style=for-the-badge">
-<img alt="Static Badge" src="https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen?style=for-the-badge">
-<img alt="GitHub issues" src="https://img.shields.io/github/issues/ghassbomb/mcqambridge?style=for-the-badge&link=https%3A%2F%2Fgithub.com%2Fghassbomb%2Fmcqambridge%2Fissues">
-<a href="https://opensource.org/licenses/MIT)"><img alt="Static Badge" src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge"></a>
-</p>
+<div align="center">
+  MCQambridge
+  <br />
+  <a href="#about"><strong>Explore the screenshots »</strong></a>
+  <br />
+  <br />
+  <a href="https://github.com/ghassbomb/mcqambridge/issues/new?assignees=&labels=bug&template=01_BUG_REPORT.md&title=bug%3A+">Report a Bug</a>
+  ·
+  <a href="https://github.com/ghassbomb/mcqambridge/issues/new?assignees=&labels=enhancement&template=02_FEATURE_REQUEST.md&title=feat%3A+">Request a Feature</a>
+  .
+  <a href="https://github.com/ghassbomb/mcqambridge/issues/new?assignees=&labels=question&template=04_SUPPORT_QUESTION.md&title=support%3A+">Ask a Question</a>
+</div>
 
-## Overview
-MCQambridge is an automated MCQ past paper solving application for Cambridge A-levels & IGCSE.
+<div align="center">
+<br />
 
-<img alt="preview" src="./static/images/1.png">
+[![Project license](https://img.shields.io/github/license/ghassbomb/mcqambridge.svg?style=flat-square)](LICENSE)
 
-## Installation & Usage
+[![Pull Requests welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg?style=flat-square)](https://github.com/ghassbomb/mcqambridge/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
+[![code with love by ghassbomb](https://img.shields.io/badge/%3C%2F%3E%20with%20%E2%99%A5%20by-ghassbomb-ff1414.svg?style=flat-square)](https://github.com/ghassbomb)
+
+</div>
+
+<details open="open">
+<summary>Table of Contents</summary>
+
+- [About](#about)
+- [Getting Started](#getting-started)
+	- [Prerequisites](#prerequisites)
+	- [Installation \& Usage](#installation--usage)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
+
+</details>
+
+---
+
+## About
+MCQambridge is an automated MCQ past paper solving application for Cambridge A-levels & IGCSE. It simplifies and automates the process of solving past papers, checking your answers, and calculating your percentages. 
+
+
+<details>
+<summary>Screenshots</summary>
+<br>
+
+
+|                               Home Page                               |                               Paper Page                               |
+| :-------------------------------------------------------------------: | :--------------------------------------------------------------------: |
+| <img src="docs/images/1.png" title="Home Page" width="100%"> | <img src="docs/images/2.png" title="Paper Page" width="100%"> |
+
+</details>
+
+## Getting Started
+
+### Prerequisites
+
+This project requires:
+- Flask
+- PyPDF2
+- Jinja2
+- requests
+
+You can download these prerequisites by following the instructions below.
+
+### Installation & Usage
 
 1. Clone the repository with: `git clone https://github.com/ghassbomb/mcqambridge.git`
 2. Change into the project directory: `cd mcqambridge`
@@ -21,45 +80,26 @@ MCQambridge is an automated MCQ past paper solving application for Cambridge A-l
 5. Start the Flask development server: `python app.py`
 6. Enjoy!
 
-## Features
-Paper selector with options for:
-- Subject
-- Year (2018-)
-- Month
-- Level (core/extended)
-- Variant
+## Roadmap
 
-Score calculation and an answer view where you can see all your answers—right or wrong. Statistics to keep track of the papers you’ve completed and the scores you’ve gotten.
+See the [open issues](https://github.com/ghassbomb/mcqambridge/issues) for a list of proposed features (and known issues).
 
-Currently, MCQambridge supports the following subjects:
+- [Top Feature Requests](https://github.com/ghassbomb/mcqambridge/issues?q=label%3Aenhancement+is%3Aopen+sort%3Areactions-%2B1-desc) (Add your votes using the 👍 reaction)
+- [Top Bugs](https://github.com/ghassbomb/mcqambridge/issues?q=is%3Aissue+is%3Aopen+label%3Abug+sort%3Areactions-%2B1-desc) (Add your votes using the 👍 reaction)
+- [Newest Bugs](https://github.com/ghassbomb/mcqambridge/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
 
-- **IGCSE**
-	- Economics (0455)
-	- Biology (0610)
-	- Chemistry (0620)
-	- Physics (0625)
-	- Science Combined (0653)
+## Contributing
 
-- **O-Levels**
-	- Economics (2281)
-	- Physics (5054)
-	- Chemistry (5070)
-	- Biology (5090)
-	- Science Combined (5129)
+Contributions are welcome! If you have any suggestions, improvements, or bug fixes, please create a pull request. For major changes, please open an issue to discuss the changes beforehand. You can also contact me at `ghass.shahzad@gmail.com` for any requests and such.
 
-- **A-Levels**
-	- Biology (9700)
-	- Chemistry (9701)
-	- Physics (9702)
-	- Accounting (9706)
-	- Economics (9708)
-
-*Note that **not all subjects or papers may work**. If there is an error, see the [contributions](#contributions) section for reporting it.*
-
-## Contributions
-
-Contributions are welcome! If you have any suggestions, improvements, or bug fixes, please create a pull request. For major changes, please open an issue to discuss the changes beforehand. You can also contact me at `ghass.shahzad@gmail.com` for any requests and such, but you should ideally open an issue.
+Please read [our contribution guidelines](docs/CONTRIBUTING.md), and thank you for being involved!
 
 ## License
 
-This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/).
+This project is licensed under the **MIT license**.
+
+See [LICENSE](LICENSE) for more information.
+
+## Acknowledgements
+
+Thanks to Abbas Fanhim for providing the [inspiration](https://github.com/Abban-Fahim/MCQ/).
