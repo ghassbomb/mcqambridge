@@ -33,8 +33,8 @@
 
 - [About](#about)
 - [Getting Started](#getting-started)
-	- [Prerequisites](#prerequisites)
-	- [Installation \& Usage](#installation--usage)
+  - [Prerequisites](#prerequisites)
+  - [Installation \& Usage](#installation--usage)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [License](#license)
