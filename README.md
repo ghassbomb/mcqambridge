@@ -46,7 +46,7 @@
 
 ## About
 
-**NOTE: LOOKING FOR FREE HOSTING FOR FLASK APP; THE CURRENT RAILWAY APP IS NOT BEING UPDATED.**
+**NOTE: LOOKING FOR FREE HOSTING FOR FLASK APP; THE CURRENT RAILWAY APP IS NOT BEING UPDATED. The app is still functional, but you will need to host it locally (see: [Installation & Usage](#installation--usage))**
 
 MCQambridge is an automated MCQ past paper solving application for Cambridge A-levels & IGCSE. It simplifies and automates the process of solving past papers, checking your answers, and calculating your percentages. 
 
@@ -66,14 +66,7 @@ MCQambridge is an automated MCQ past paper solving application for Cambridge A-l
 
 ### Prerequisites
 
-This project requires:
-- Flask
-- PyPDF2
-- Jinja2
-- requests
-
-You can download these prerequisites by following the instructions below.
-
+This project requires Python 3 (any version of Python 3 that supports the requirements will do).
 ### Installation & Usage
 
 1. Clone the repository with: `git clone https://github.com/ghassbomb/mcqambridge.git`
