@@ -6,44 +6,34 @@
   <form action="/pdf" method="POST" id="main">
     <div class="main-form-message">
       Papers are downloaded from
-      <a href="https://gceguide.com">gceguide.com</a>. If an error is given,
-      make sure to first check if the paper is available on the site before
-      opening an issue.
+      <a href="https://pastpapers.papacambridge.com/">PapaCambridge</a>. If an error is thrown, make sure to first check if the paper is available on the site before opening an issue.
     </div>
     <div class="main-form-label">Subject:</div>
     <select name="subject" id="subject" onchange="handleSubjectChange(this)">
-      <optgroup label="Cambridge IGCSE">
-        <option value="Cambridge IGCSE/Economics (0455)">
-          Economics (0455)
-        </option>
-        <option value="Cambridge IGCSE/Biology (0610)">Biology (0610)</option>
-        <option value="Cambridge IGCSE/Chemistry (0620)">
-          Chemistry (0620)
-        </option>
-        <option value="Cambridge IGCSE/Physics (0625)">Physics (0625)</option>
-        <option value="Cambridge IGCSE/Science - Combined (0653)">
-          Science Combined (0653)
-        </option>
+      <optgroup label="IGCSE">
+        <option value="0455">Economics (0455)</option>
+        <option value="0610">Biology (0610)</option>
+        <option value="0620">Chemistry (0620)</option>
+        <option value="0625">Physics (0625)</option>
+        <option value="0653">Science Combined (0653)</option>
       </optgroup>
       <optgroup label="O Levels">
-        <option value="O Levels/Economics (2281)">Economics (2281)</option>
-        <option value="O Levels/Physics (5054)">Physics (5054)</option>
-        <option value="O Levels/Chemistry (5070)">Chemistry (5070)</option>
-        <option value="O Levels/Biology (5090)">Biology (5090)</option>
-        <option value="O Levels/Science - Combined (5129)">
-          Science Combined (5129)
-        </option>
+        <option value="2281">Economics (2281)</option>
+        <option value="5054">Physics (5054)</option>
+        <option value="5070">Chemistry (5070)</option>
+        <option value="5090">Biology (5090)</option>
+        <option value="5129">Science Combined (5129)</option>
       </optgroup>
-      <optgroup label="A Levels">
-        <option value="A Levels/Biology (9700)">Biology (9700)</option>
-        <option value="A Levels/Chemistry (9701)">Chemistry (9701)</option>
-        <option value="A Levels/Physics (9702)">Physics (9702)</option>
-        <option value="A Levels/Accounting (9706)">Accounting (9706)</option>
-        <option value="A Levels/Economics (9708)">Economics (9708)</option>
+      <optgroup label="AS and A Levels">
+        <option value="9700">Biology (9700)</option>
+        <option value="9701">Chemistry (9701)</option>
+        <option value="9702">Physics (9702)</option>
+        <option value="9706">Accounting (9706)</option>
+        <option value="9708">Economics (9708)</option>
       </optgroup>
     </select>
-    <div class="main-form-label">Year (2018 - 2022):</div>
-    <input required type="number" name="year" id="year" min="2018" max="2022" />
+    <div class="main-form-label">Year (18 - 23):</div>
+    <input required type="number" name="year" id="year" min="18" max="23" />
     <div class="main-form-label">Month:</div>
     <select name="month" id="month">
       <option value="m">Feb/March</option>
@@ -85,15 +75,15 @@
     let subject = e.target.subject.value;
     let year = e.target.year.value;
 
-    if (variant !== "2" && month === "m") {
-      reportError("Only variant 2's are available in the months of Feb/March!");
+    if (variant !== "2" && month === "m" && (subject === "0455" || subject === "0610" || subject === "0620" || subject === "0625" || subject === "0653")) {
+      reportError(
+        "Only variant 2s are available in the months of Feb/March for IGCSE papers!"
+      );
       e.target.variant.value = "2";
       return false;
     }
-    if (year === "2022" && month === "w") {
-      reportError(
-        "Only Feb/March and May/June are available for 2022 on gceguide.com currently!"
-      );
+    if (year === "2023" && month === "w") {
+      reportError("Papers of this period have not been uploaded yet!");
       e.target.month.value = "s";
       return false;
     }
@@ -104,7 +94,7 @@
       subject === "O Levels/Science - Combined (5129)" ||
       (subject === "O Levels/Economics (2281)" && month === "m")
     ) {
-      reportError("O level subjects do not have Feb/March papers.");
+      reportError("O level subjects do not have Feb/March papers!");
       return false;
     }
     if (
@@ -116,19 +106,7 @@
         month === "s" &&
         variant === "3")
     ) {
-      reportError("O level subjects do not have variant 3's in May/June.");
-      return false;
-    }
-    if (
-      subject === "O Levels/Biology (5090)" ||
-      subject === "O Levels/Chemistry (5070)" ||
-      subject === "O Levels/Physics (5054)" ||
-      subject === "O Levels/Science - Combined (5129)" ||
-      (subject === "O Levels/Economics (2281)" &&
-        month === "w" &&
-        variant === "1")
-    ) {
-      reportError("O level subjects do not have variant 1's in Oct/Nov.");
+      reportError("O level subjects do not have variant 3s in May/June!");
       return false;
     }
     if (
@@ -137,11 +115,25 @@
       subject === "O Levels/Physics (5054)" ||
       (subject === "O Levels/Science - Combined (5129)" &&
         month === "w" &&
-        variant === "3")
+        variant === "1")
     ) {
       reportError(
-        "O level science subjects do not have variant 3's in Oct/Nov."
+        "Certain O level subjects do not have variant 3s in Oct/Nov!"
       );
+      return false;
+    }
+    if (
+      subject === "O Levels/Economics (2281)" &&
+      month === "w" &&
+      variant === "1"
+    ) {
+      reportError(
+        "Certain O level subjects do not have variant 1s in Oct/Nov!"
+      );
+      return false;
+    }
+    if ((subject === "9700" || subject === "9701" || subject === "9702" || subject === "9706" || subject === "9708") && month == "s" && variant !== 2) {
+      reportError("A level subjects only have variant 2s in Feb/March!");
       return false;
     }
   };
@@ -158,14 +150,14 @@
     const selectedSubject = selectElement.value;
 
     if (
-      selectedSubject !== "Cambridge IGCSE/Physics (0625)" &&
-      selectedSubject !== "Cambridge IGCSE/Chemistry (0620)" &&
-      selectedSubject !== "Cambridge IGCSE/Biology (0610)" &&
-      selectedSubject !== "Cambridge IGCSE/Science - Combined (0653)" &&
-      selectedSubject !== "O Levels/Biology (5090)" &&
-      selectedSubject !== "O Levels/Chemistry (5070)" &&
-      selectedSubject !== "O Levels/Physics (5054)" &&
-      selectedSubject !== "O Levels/Science - Combined (5129)"
+      selectedSubject !== "0625" &&
+      selectedSubject !== "0620" &&
+      selectedSubject !== "0610" &&
+      selectedSubject !== "0653" &&
+      selectedSubject !== "5090" &&
+      selectedSubject !== "5070" &&
+      selectedSubject !== "5054" &&
+      selectedSubject !== "5129"
     ) {
       levelSelect.value = "1";
       levelSelect.disabled = true;

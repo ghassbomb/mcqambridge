@@ -48,19 +48,35 @@
 
 **NOTE: LOOKING FOR FREE HOSTING FOR FLASK APP; THE CURRENT RAILWAY APP IS NOT BEING UPDATED. The app is still functional, but you will need to host it locally (see: [Installation & Usage](#installation--usage))**
 
-MCQambridge is an automated MCQ past paper solving application for Cambridge A-levels & IGCSE. It simplifies and automates the process of solving past papers, checking your answers, and calculating your percentages. 
+<figure>
+        <img src="./docs/images/1.png" alt="Main Page" />
+        <figcaption>Figure 1.1: The paper selection page.</figcaption>
+      </figure>
+      <p>
+        MCQambridge is an automated MCQ past paper solving application for
+        Cambridge A-levels & IGCSE. I created it to simplify the process of checking
+        answers, calculating scores, and percentages. It was created using
+        Python and the web development trio.
+      </p>
+      <p>Currently, it supports all CAIE IGCSE/O/A level papers. I plan to add support for other variants, and maybe I'll even expand it to include structured questions. There is no website however, as I was unable to acquire free hosting that supports download requests for the QP and MS pdfs, so you'll have to host it yourself. It is an extremely simple 5-step process, however.</p>
+      <p>To begin, you first select a paper. You can choose between every Cambridge paper released 2018 and onwards. Aside from the year, you can choose between: subject, month (period), level (core, or extended?), and variant. You can see all these options in Fig 1.1. Once you've chosen a paper, press submit. The app then checks if the paper exists: if it does not, you will be prompted to select another paper; otherwise, it will download the relevant PDFs and redirect you to the paper solving page.</p>
+      <figure>
+        <img src="./docs/images/2.png" alt="Paper Page" />
+        <figcaption>Figure 1.2: Solving a paper.</figcaption>
+      </figure>
+      <p>When solving the paper, you are presented with the screen shown above. You select one of four lettered options, corresponding to the choices on the MCQ paper. You will be shown immediately if you are correct or incorrect.</p>
+      <figure>
+        <img src="./docs/images/3.png" alt="Results Page" />
+        <figcaption>Figure 1.3: The results of a paper.</figcaption>
+      </figure>
+      <p>Once you are done with a paper, you will be shown your results. You will get your overall score, percentage, and also a question-by-question breakdown of the parts you got wrong.</p>
+      <figure>
+        <img src="./docs/images/4.png" alt="Statistics Page" />
+        <figcaption>Figure 1.4: The statistics of all papers attempted.</figcaption>
+      </figure>
+      <p>At any time, you can access a statistics page that showcases all the papers you've attempted so far and the results you got in them. This makes it easy to track your progress; to answer questions like 'am I getting better in subject <em>x</em>'?</p>
+      <p></p>
 
-
-<details>
-<summary>Screenshots</summary>
-<br>
-
-
-|                               Home Page                               |                               Paper Page                               |
-| :-------------------------------------------------------------------: | :--------------------------------------------------------------------: |
-| <img src="docs/images/1.png" title="Home Page" width="100%"> | <img src="docs/images/2.png" title="Paper Page" width="100%"> |
-
-</details>
 
 ## Getting Started
 

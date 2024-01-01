@@ -11,21 +11,21 @@ app.secret_key = os.urandom(24)
 answers = {}
 papers = {}
 subject_mapping = {
-    '0455': 'IGCSE Economics',
-    '0610': 'IGCSE Biology',
-    '0620': 'IGCSE Chemistry',
-    '0625': 'IGCSE Physics',
-    '0653': 'IGCSE Science Combined',
-    '2281': 'O Level Economics',
-    '5054': 'O Level Physics',
-    '5070': 'O Level Chemistry',
-    '5090': 'O Level Biology',
-    '5129': 'O Level Science Combined',
-    '9700': 'A Level Biology',
-    '9701': 'A Level Chemistry',
-    '9702': 'A Level Physics',
-    '9706': 'A Level Accounting',
-    '9708': 'A LevelEconomics'
+    '0455': 'IGCSE/Economics (0455)',
+    '0610': 'IGCSE/Biology (0610)',
+    '0620': 'IGCSE/Chemistry (0620)',
+    '0625': 'IGCSE/Physics (0625)',
+    '0653': 'IGCSE/Science - Combined (0653)',
+    '2281': 'O Level/Economics (2281)',
+    '5054': 'O Level/Physics (5054)',
+    '5070': 'O Level/Chemistry (5070)',
+    '5090': 'O Level/Biology (5090)',
+    '5129': 'O Level/Science Combined (5129)',
+    '9700': 'AS and A Level/Biology (9700)',
+    '9701': 'AS and A Level/Chemistry (9701)',
+    '9702': 'AS and A Level/Physics (9702)',
+    '9706': 'AS and A Level/Accounting (9706)',
+    '9708': 'AS and A Level/Economics (9708)'
 }
 
 
@@ -48,27 +48,16 @@ def ans_filter(raw):
 
 def download_pdfs(subj, year, month, variant, ce):
     """Takes the inputs from the forms on the homepage and uses them to download the corresponding question paper and marking scheme."""
-    subj_code = ''
-    flag = False
     root_dir = os.getcwd()
-
-    # Extracts subj_code from subj
-    for char in subj:
-        if char == '(':
-            flag = True
-            continue
-        if char == ')':
-            flag = False
-        if flag == True:
-            subj_code += char
 
     # Levels/CE is sometimes returned as 'None' when the user changes the value in the form, but then switches to a subject for which it is not available
     if ce is None:
         ce = 1
 
-    # Creates a URL based on the given variables to gceguide.com and downloads the marking scheme and question paper
-    url_ms = f"https://papers.gceguide.com/{subj}/{year}/{subj_code}_{month}{str(year)[2:4]}_ms_{ce}{variant}.pdf"
-    url_qp = f"https://docs.google.com/viewer?url=https://papers.gceguide.com/{subj}/{year}/{subj_code}_{month}{str(year)[2:4]}_qp_{ce}{variant}.pdf&embedded=true"
+    # Creates a URL based on the given variables to the papacambridge pdf and downloads the marking scheme and question paper
+    url_qp = f"https://docs.google.com/viewer?url=https://pastpapers.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/{subj}_{month}{str(year)}_qp_{ce}{variant}.pdf&embedded=true"
+    url_ms = f"https://pastpapers.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/{subj}_{month}{str(year)}_ms_{ce}{variant}.pdf"
+    print(url_qp)
     r = requests.get(url_ms, allow_redirects=True)
     open(os.path.join(root_dir, 'static', 'pdf', 'ms.pdf'), 'wb').write(r.content)
     return url_qp
@@ -76,22 +65,11 @@ def download_pdfs(subj, year, month, variant, ce):
 
 def get_paper_name(subj, year, month, variant, ce):
     """Gets paper name, for statistics and pdf.html title"""
-    subj_code = ''
-    flag = False
 
     if ce is None:
         ce = 1
 
-    for char in subj:
-        if char == '(':
-            flag = True
-            continue
-        if char == ')':
-            flag = False
-        if flag == True:
-            subj_code += char
-
-    return f"{subj_code}_{month}{str(year)[2:4]}_qp_{ce}{variant}"
+    return f"{subj}_{month}{str(year)[2:4]}_qp_{ce}{variant}"
 
 
 @app.route("/")
@@ -163,11 +141,13 @@ def pdf_answers():
     if next_question_number >= len(correct_answers):
         papers[paper_name] = round((score/len(correct_answers))*100, 1)
 
-        resp = make_response(render_template('pdf_score.html', score=score, total_questions=len(correct_answers), answers=answers, correct_answers=correct_answers))
+        resp = make_response(render_template('pdf_score.html', score=score, total_questions=len(
+            correct_answers), answers=answers, correct_answers=correct_answers))
         resp.set_cookie('papers_scores', json.dumps(papers))
 
         return resp
-    resp = make_response(render_template('pdf.html', question_number=next_question_number, answers=correct_answers, score=score, feedback=feedback, pdf_link=pdf_link, paper_name=paper_name))
+    resp = make_response(render_template('pdf.html', question_number=next_question_number,
+                         answers=correct_answers, score=score, feedback=feedback, pdf_link=pdf_link, paper_name=paper_name))
     resp.set_cookie('papers_scores', json.dumps(papers))
 
     return resp
@@ -178,10 +158,7 @@ def statistics():
     papers_json = request.cookies.get('papers_scores')
     papers = json.loads(papers_json) if papers_json else {}
 
-
     return render_template('statistics.html', papers=papers, subject_mapping=subject_mapping)
-
 
 if __name__ == '__main__':
     app.run(debug=True)
-
