@@ -18,11 +18,11 @@
       <p>Currently, it supports all CAIE IGCSE/O/A level papers. I plan to add support for other variants, and maybe I'll even expand it to include structured questions. There is no website however, as I was unable to acquire free hosting that supports download requests for the QP and MS pdfs, so you'll have to host it yourself. It is an extremely simple <a href="#installation--usage">5-step process</a>, however.</p>
       
 ## Usage
-<p>To begin, you first select a paper. You can choose between every Cambridge paper released 2018 and onwards. Aside from the year, you can choose between: subject, month (period), level (core, or extended?), and variant. You can see all these options in the image below. Once you've chosen a paper, press submit. The app then checks if the paper exists: if it does not, you will be prompted to select another paper; otherwise, it will download the relevant PDFs and redirect you to the paper solving page.</p>
+<p>To begin, you first select a paper. You can choose between every Cambridge paper released 2018 and onwards. Aside from the year, you can choose between: subject, a-level, month, level (core, or extended?), and variant. Once you've chosen a paper, press submit.</p>
       <figure>
         <img src="./docs/images/2.png" alt="Paper Page" />
       </figure>
-      <p>When solving the paper, you are presented with the screen shown above. You select one of four lettered options, corresponding to the choices on the MCQ paper. You will be shown immediately if you are correct or incorrect. The PDF viewer (google drive) supports mobile devices, but at the cost of having users scroll back down through the PDF after answering questions.</p>
+      <p>When solving the paper, you are presented with the screen shown above. You select one of four lettered options, corresponding to the choices on the MCQ paper. You will be shown immediately if you are correct or incorrect. You can zoom in or out of the PDF, and navigate between pages.</p>
       <figure>
         <img src="./docs/images/3.png" alt="Results Page" />
       </figure>
@@ -32,7 +32,6 @@
       </figure>
       <p>At any time, you can access a statistics page that showcases all the papers you've attempted so far and the results you got in them. This makes it easy to track your progress; to answer questions like 'am I getting better in subject <em>x</em>'?</p>
       <p></p>
-
 
 ## Getting Started
 

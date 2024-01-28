@@ -1,170 +1,105 @@
-{% extends 'base.html' %} {% block head %}
+{% extends 'base.html' %} {% block extra_head %}
 <title>Paper Selection</title>
-{% endblock %} {% block article %}
-<div class="main-form center">
-  <div class="main-form-title"><a href="/">Select Your Paper!</a></div>
-  <form action="/pdf" method="POST" id="main">
-    <div class="main-form-message">
-      Papers are downloaded from
-      <a href="https://pastpapers.papacambridge.com/">PapaCambridge</a>. If an error is thrown, make sure to first check if the paper is available on the site before opening an issue.
+{% endblock %}{% block header %}<h1 class="fw-bold">Select Your Paper</h1>
+{% endblock %}{% block main %}
+<p hidden class="alert alert-danger" id="error-message"></p>
+<form action="/pdf" method="POST" id="main-form">
+  <div class="form-container">
+    <div class="row mb-3">
+      <label class="form-label" for="subject">Subject</label>
+      <select name="subject" class="form-select" id="subject">
+        <option value="please-select" disabled="true" selected>
+          Please select a subject...
+        </option>
+        <optgroup label="IGCSE">
+          <option value="0455">Economics (0455)</option>
+          <option value="0610">Biology (0610)</option>
+          <option value="0620">Chemistry (0620)</option>
+          <option value="0625">Physics (0625)</option>
+          <option value="0653">Science Combined (0653)</option>
+        </optgroup>
+        <optgroup label="O Levels">
+          <option value="2281">Economics (2281)</option>
+          <option value="5054">Physics (5054)</option>
+          <option value="5070">Chemistry (5070)</option>
+          <option value="5090">Biology (5090)</option>
+          <option value="5129">Science Combined (5129)</option>
+        </optgroup>
+        <optgroup label="AS and A Levels">
+          <option value="9700">Biology (9700)</option>
+          <option value="9701">Chemistry (9701)</option>
+          <option value="9702">Physics (9702)</option>
+          <option value="9706">Accounting (9706)</option>
+          <option value="9708">Economics (9708)</option>
+        </optgroup>
+      </select>
     </div>
-    <div class="main-form-label">Subject:</div>
-    <select name="subject" id="subject" onchange="handleSubjectChange(this)">
-      <optgroup label="IGCSE">
-        <option value="0455">Economics (0455)</option>
-        <option value="0610">Biology (0610)</option>
-        <option value="0620">Chemistry (0620)</option>
-        <option value="0625">Physics (0625)</option>
-        <option value="0653">Science Combined (0653)</option>
-      </optgroup>
-      <optgroup label="O Levels">
-        <option value="2281">Economics (2281)</option>
-        <option value="5054">Physics (5054)</option>
-        <option value="5070">Chemistry (5070)</option>
-        <option value="5090">Biology (5090)</option>
-        <option value="5129">Science Combined (5129)</option>
-      </optgroup>
-      <optgroup label="AS and A Levels">
-        <option value="9700">Biology (9700)</option>
-        <option value="9701">Chemistry (9701)</option>
-        <option value="9702">Physics (9702)</option>
-        <option value="9706">Accounting (9706)</option>
-        <option value="9708">Economics (9708)</option>
-      </optgroup>
-    </select>
-    <div class="main-form-label">Year (18 - 23):</div>
-    <input required type="number" name="year" id="year" min="18" max="23" />
-    <div class="main-form-label">Month:</div>
-    <select name="month" id="month">
-      <option value="m">Feb/March</option>
-      <option value="s">May/June</option>
-      <option value="w">Oct/Nov</option>
-    </select>
-    <div class="main-form-label">Level:</div>
-    <select name="level" id="level">
-      <option value="1">Core</option>
-      <option value="2">Extended</option>
-    </select>
-    <div class="main-form-label">Variant:</div>
-    <select name="variant" id="variant">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-    </select>
-    <div><input type="submit" value="Submit!" /></div>
-  </form>
-  <strong><div class="form-container"></div></strong>
-</div>
-<script>
-  const form = document.getElementById("main");
-  const subjectSelect = document.getElementById("subject");
-  const levelSelect = document.getElementById("level");
-
-  async function checkPdfUrl(url) {
-    try {
-      const response = await fetch(url, { method: "HEAD" });
-      return response.ok;
-    } catch (error) {
-      return false;
-    }
-  }
-
-  form.onsubmit = (e) => {
-    let variant = e.target.variant.value;
-    let month = e.target.month.value;
-    let subject = e.target.subject.value;
-    let year = e.target.year.value;
-
-    if (variant !== "2" && month === "m" && (subject === "0455" || subject === "0610" || subject === "0620" || subject === "0625" || subject === "0653")) {
-      reportError(
-        "Only variant 2s are available in the months of Feb/March for IGCSE papers!"
-      );
-      e.target.variant.value = "2";
-      return false;
-    }
-    if (year === "2023" && month === "w") {
-      reportError("Papers of this period have not been uploaded yet!");
-      e.target.month.value = "s";
-      return false;
-    }
-    if (
-      subject === "O Levels/Biology (5090)" ||
-      subject === "O Levels/Chemistry (5070)" ||
-      subject === "O Levels/Physics (5054)" ||
-      subject === "O Levels/Science - Combined (5129)" ||
-      (subject === "O Levels/Economics (2281)" && month === "m")
-    ) {
-      reportError("O level subjects do not have Feb/March papers!");
-      return false;
-    }
-    if (
-      subject === "O Levels/Biology (5090)" ||
-      subject === "O Levels/Chemistry (5070)" ||
-      subject === "O Levels/Physics (5054)" ||
-      subject === "O Levels/Science - Combined (5129)" ||
-      (subject === "O Levels/Economics (2281)" &&
-        month === "s" &&
-        variant === "3")
-    ) {
-      reportError("O level subjects do not have variant 3s in May/June!");
-      return false;
-    }
-    if (
-      subject === "O Levels/Biology (5090)" ||
-      subject === "O Levels/Chemistry (5070)" ||
-      subject === "O Levels/Physics (5054)" ||
-      (subject === "O Levels/Science - Combined (5129)" &&
-        month === "w" &&
-        variant === "1")
-    ) {
-      reportError(
-        "Certain O level subjects do not have variant 3s in Oct/Nov!"
-      );
-      return false;
-    }
-    if (
-      subject === "O Levels/Economics (2281)" &&
-      month === "w" &&
-      variant === "1"
-    ) {
-      reportError(
-        "Certain O level subjects do not have variant 1s in Oct/Nov!"
-      );
-      return false;
-    }
-    if ((subject === "9700" || subject === "9701" || subject === "9702" || subject === "9706" || subject === "9708") && month == "s" && variant !== 2) {
-      reportError("A level subjects only have variant 2s in Feb/March!");
-      return false;
-    }
-  };
-
-  function reportError(message) {
-    const errorDiv = document.createElement("div");
-    errorDiv.classList.add("error-message");
-    errorDiv.textContent = message;
-    const formContainer = document.querySelector(".form-container");
-    formContainer.appendChild(errorDiv);
-  }
-
-  function handleSubjectChange(selectElement) {
-    const selectedSubject = selectElement.value;
-
-    if (
-      selectedSubject !== "0625" &&
-      selectedSubject !== "0620" &&
-      selectedSubject !== "0610" &&
-      selectedSubject !== "0653" &&
-      selectedSubject !== "5090" &&
-      selectedSubject !== "5070" &&
-      selectedSubject !== "5054" &&
-      selectedSubject !== "5129"
-    ) {
-      levelSelect.value = "1";
-      levelSelect.disabled = true;
-    } else {
-      levelSelect.disabled = false;
-    }
-  }
-  handleSubjectChange(subjectSelect);
-</script>
+    <div class="row mb-3">
+      <label class="form-label" for="year">Year (18 - 23): <output id="rangecount" class="fw-bold">18</output>
+      </label>
+      <input type="range" class="form-range" name="year" id="year" min="18" max="23" value="18" step="1" oninput="document.getElementById('rangecount').value = this.value"/>
+    </div>
+    <div class="row mb-3" id="alevel">
+      <label class="form-label">A-Level</label>
+      <div class="radio-buttons">
+        <input type="radio" class="btn-check" name="alevel" id="as-level" value="as-level" />
+        <label class="btn btn-primary" for="as-level">AS</label>
+        <input type="radio" class="btn-check" name="alevel" id="a2-level" value="a2-level" />
+        <label class="btn btn-primary" for="a2-level" disabled="true">A2</label>
+      </div>
+    </div>
+    <div class="row mb-3" id="month">
+      <label class="form-label">Month</label>
+      <div class="radio-buttons">
+        <input class="btn-check" checked type="radio" id="m" value="m" name="month" />
+        <label class="btn btn-primary" for="m">Feb/March</label>
+        <input class="btn-check" type="radio" id="s" value="s" name="month" />
+        <label class="btn btn-primary" for="s">May/June</label>
+        <input class="btn-check" type="radio" id="w" value="w" name="month" />
+        <label class="btn btn-primary" for="w">Oct/Nov</label>
+      </div>
+    </div>
+    <div class="row mb-3" id="level">
+      <label class="form-label">Level</label>
+      <div class="radio-buttons">
+        <input
+        class="btn-check" 
+          type="radio"
+          name="level"
+          id="core"
+          value="1"
+          required
+          checked="checked"
+        />
+        <label class="btn btn-primary" for="core">Core</label>
+        <input class="btn-check" type="radio" name="level" id="extended" value="2" />
+        <label class="btn btn-primary" for="extended" disabled="true"
+          >Extended</label
+        >
+      </div>
+    </div>
+    <div class="row mb-4" id="variant">
+      <label class="form-label">Variant</label>
+      <div class="radio-buttons">
+        <input class="btn-check" type="radio" name="variant" id="one" value="1" />
+        <label class="btn btn-primary" for="one">1</label>
+        <input
+          class="btn-check"
+          type="radio"
+          name="variant"
+          id="two"
+          value="2"
+          required
+        />
+        <label class="btn btn-primary" for="two">2</label>
+        <input class="btn-check" type="radio" name="variant" id="three" value="3" />
+        <label class="btn btn-primary" for="three">3</label>
+      </div>
+    </div>
+    <div class="d-grid gap-2">
+      <input class="btn btn-success" type="submit" value="Submit" />
+    </div>
+  </div>
+</form>
+<script src="../static/js/index.js" async></script>
 {% endblock %}

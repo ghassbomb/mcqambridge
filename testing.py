@@ -8,20 +8,6 @@ def url_exists(url):
 
 
 subjects = [
-    # IGCSE
-    "IGCSE/Economics (0455)",
-    "IGCSE/Biology (0610)",
-    "IGCSE/Chemistry (0620)",
-    "IGCSE/Physics (0625)",
-    "IGCSE/Science - Combined (0653)",
-
-    # O-Levels
-    "O Level/Economics (2281)",
-    "O Level/Physics (5054)",
-    "O Level/Chemistry (5070)",
-    "O Level/Biology (5090)",
-    "O Level/Science Combined (5129)",
-
     # A-Levels
     "AS and A Level/Biology (9700)",
     "AS and A Level/Chemistry (9701)",
@@ -32,7 +18,7 @@ subjects = [
 
 years = ['2018', '2019', '2020', '2021', '2022', '2023']
 months = ['m', 's', 'w']
-levels = ['1', '2']
+levels = ['1', '2', '3']
 variants = ['1', '2', '3']
 
 for subject in subjects:
@@ -48,6 +34,10 @@ for subject in subjects:
                          "O Level/Biology (5090)", "O Level/Chemistry (5070)", "O Level/Physics (5054)", "O Level/Science Combined (5129)"])
                         and (level == '2')
                     ):
+                        continue
+
+                    # level 3 only exists for A level subjects
+                    if ('AS and A' not in subject and level == '3'):
                         continue
 
                     # Papers of this date have not been uploaded yet
@@ -83,8 +73,19 @@ for subject in subjects:
                     if "O Level/Economics (2281)" in subject and (month == 'w' and variant == '1'):
                         continue
 
-                    # Only variant 2s in Feb/March in A levels
-                    if 'AS and A Level' in subject and variant != 2:
+                    # Only variant 2s in Feb/March in AS levels
+                    if month == 'm' and variant != 2 and level == 1:
+                        continue
+
+                    # Sciences don't have A2 MCQs
+                    if subject in ["AS and A Level/Biology (9700)",
+                                   "AS and A Level/Chemistry (9701)",
+                                   "AS and A Level/Physics (9702)"] and level == 3:
+                        continue
+
+                    # Only variant 2s in Feb/March in A2 levels for Econ and Acc
+                    if subject in ["AS and A Level/Accounting (9706)",
+                                   "AS and A Level/Economics (9708)"] and month == 'm' and level == 3 and variant != 2:
                         continue
 
                     # Extract the subject code from the subject string
@@ -108,4 +109,4 @@ for subject in subjects:
                         pass
                     else:
                         print(
-                            f"Error - {url}, {subject}, {year}, {month}, {year}, {level}, {variant}")
+                            f"Error - {url}, {subject}, {year}, {month}, {level}, {variant}")

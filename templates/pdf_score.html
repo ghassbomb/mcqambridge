@@ -1,50 +1,71 @@
-{% extends 'base.html' %} {% block head %}
-<title>Score & Answers</title>
-{% endblock %} {% block article %}
-<h1 style="text-align: center"><a href="/">Your Answers & Score!</a></h1>
-<div class="answers">
-  <h2>Score</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Your Score</th>
-        <th>Total Questions</th>
-        <th>% Correct</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{ score }}</td>
-        <td>{{ total_questions }}</td>
-        <td>{{ ((score / total_questions) * 100) | round(2) }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<div class="answers">
-  <h2>Answers</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Question Number</th>
-        <th>Your Answer</th>
-        <th>Correct Answer</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for qno in range(total_questions) %}
-      <tr>
-        <td>{{ qno + 1 }}</td>
-        {% if answers[qno] == correct_answers[qno]%}
-        <td style="color: greenyellow">{{ answers[qno] }}</td>
-        {% else %}
-        <td style="color: red">{{ answers[qno] }}</td>
-        {% endif %}
-        <td>{{ correct_answers[qno] }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
+{% extends 'base.html' %} {% block extra_head %}
+<title></title>
+{% endblock %} {% block header %}
+<h1 class="fw-bold">Your Answers & Score!</h1>
+{% endblock %}{% block main %}
+<h2>Score</h2>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Your Score</th>
+      <th scope="col">Total Questions</th>
+      <th scope="col">% Correct</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="score"></td>
+      <td id="total-questions"></td>
+      <td id="score-percent"></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Answers</h2>
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Your Answer</th>
+      <th scope="col">Correct Answer</th>
+    </tr>
+  </thead>
+  <tbody id="answers"></tbody>
+</table>
+
+<script>
+  var correctAnswers ={{ correct_answers | tojson | safe }};
+  var paperName = `{{ paper_name | safe }}`;
+  var userAnswers = {{ user_answers | tojson | safe }};
+  var score = 0;
+  var questionNum = correctAnswers.length;
+  for (let i = 0; i < correctAnswers.length; i++) {
+    const row = answers.insertRow();
+    const [cell1, cell2, cell3] = Array.from({ length: 3 }, () =>
+      row.insertCell()
+    );
+    if (correctAnswers[i] === userAnswers[i]) {
+      score++;
+      cell1.textContent = i + 1;
+      cell1.classList.add('fw-bold');
+      cell2.textContent = userAnswers[i];
+      cell2.classList.add('table-success');
+      cell3.textContent = correctAnswers[i];
+    } else {
+      cell1.textContent = i + 1;
+      cell1.classList.add('fw-bold');
+      cell2.textContent = userAnswers[i];
+      cell2.classList.add('table-danger');
+      cell3.textContent = correctAnswers[i];
+    }
+  }
+  var scorePercent = Math.round((score / questionNum) * 100);
+
+  document.querySelector('title').textContent = paperName;
+  document.getElementById('total-questions').textContent = questionNum;
+  document.getElementById('score').textContent = score;
+  document.getElementById('score-percent').textContent = scorePercent;
+  localStorage.setItem(paperName, scorePercent)
+</script>
 
 {% endblock %}

@@ -1,37 +1,79 @@
-{% extends 'base.html' %} {% block head %}
+{% extends 'base.html' %} {% block extra_head %}
 <title>{{ paper_name }}</title>
-{% endblock %} {% block article %}
-<div class="answer-form-title">
-  <a href="/">Question {{ question_number+1 }}</a>
-</div>
+{% endblock %} {% block header %}
+<h1 id="title" class="fw-bold">Question 1</h1>
+{% endblock %} {% block main %}
+<script
+  src="https://mozilla.github.io/pdf.js/build/pdf.mjs"
+  type="module"
+></script>
+<script>
+  var correctAnswers = {{ answers | tojson | safe }};
+</script>
 
-<form action="/pdf_answers" method="POST" id="answers">
-  <input type="hidden" name="question_number" value="{{ question_number }}" />
-  <input type="hidden" name="answers_json" value="{{ answers_json }}" />
-  <input type="hidden" name="score" value="{{ score }}" />
-  <input type="hidden" name="pdf_link" value="{{ pdf_link }}" />
-  <input type="hidden" name="paper_name" value="{{ paper_name }}" />
-  <button type="submit" name="user_answer" value="A" class="answer-button">
-    A
-  </button>
-  <button type="submit" name="user_answer" value="B" class="answer-button">
-    B
-  </button>
-  <button type="submit" name="user_answer" value="C" class="answer-button">
-    C
-  </button>
-  <button type="submit" name="user_answer" value="D" class="answer-button">
-    D
-  </button>
+<form action="/pdf_score" id="form" method="POST">
+  <input hidden type="text" id="user-answers" name="user_answers" value="">
+  <input hidden type="text" id="paper-name" name="paper_name" value="">
+  <input hidden type="text" id="correct-answers" name="correct_answers" value="">
 </form>
 
-{% if feedback == 'Incorrect.' %}
-<strong><p id="feedback" style="color: red">{{ feedback }}</p></strong>
-{% else %}
-<strong><p id="feedback" style="color: greenyellow">{{ feedback }}</p> </strong>
-{% endif %}
-
-<div class="pdf-viewer">
-  <iframe src="{{ pdf_link }}" frameborder="0" scrolling="no"></iframe>
+<div class="text-center mb-3">
+  <button
+    class="btn btn-primary"
+    type="submit"
+    name="user_answer"
+    onclick="answer('A')"
+    value="A"
+    class="answer-button"
+  >
+    A
+  </button>
+  <button
+    class="btn btn-danger"
+    type="submit"
+    name="user_answer"
+    onclick="answer('B')"
+    value="B"
+    class="answer-button"
+  >
+    B
+  </button>
+  <button
+    class="btn btn-success"
+    type="submit"
+    name="user_answer"
+    onclick="answer('C')"
+    value="C"
+    class="answer-button"
+  >
+    C
+  </button>
+  <button
+    class="btn btn-warning"
+    type="submit"
+    name="user_answer"
+    onclick="answer('D')"
+    value="D"
+    class="answer-button"
+  >
+    D
+  </button>
 </div>
+<p id="incorrect-answer" style="display: none;" class="alert alert-danger">Incorrect!</p>
+<p id="correct-answer" style="display: none;" class="alert alert-success">Correct!</p>
+
+<div class="text-center">
+  <button class="btn btn-primary" id="prev">←</button>
+  <button class="btn btn-primary" id="next">→</button>
+  <button class="btn btn-success" id="zoominbutton" type="button">+</button>
+  <button class="btn btn-success" id="zoomoutbutton" type="button">-</button>
+</div>
+<div
+  class="border border-2 border-info rounded-3 container mt-2"
+  style="overflow: scroll"
+>
+  <canvas id="the-canvas" style="overflow: scroll"></canvas>
+</div>
+
+<script src="../static/js/pdf.js" async></script>
 {% endblock %}

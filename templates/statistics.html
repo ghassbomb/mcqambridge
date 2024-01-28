@@ -1,49 +1,37 @@
-{% extends 'base.html' %}
-{% block head %}
+{% extends 'base.html' %} {% block extra_head %}
 <title>Statistics</title>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-<style>
-    * {
-        color: #ebdbb2;
-    }
-    td {
-        color: #282828;
-    }
-    #statistics-table_info {
-        color: #fe8019;
-    }
-</style>
-{% endblock %}
-{% block article %}
-<h1 style="text-align: center;"><a href="/">Statistics</a></h1>
-<div id="stats">
-    <table id="statistics-table" class="statistics-table-class">
-        <thead>
-            <tr>
-                <th>Paper</th>
-                <th>Score</th>
-                <th>Subject</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for paper in papers %}
-            {% set subject_code = paper.split('_')[0] %}
-            {% set subject_name = subject_mapping[subject_code] %}
-            <tr>
-                <td>{{ paper }}</td>
-                <td>{{ papers[paper] }}</td>
-                <td>{{ subject_name }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+{% endblock %} {% block header %}
+<h1 class="fw-bold">Statistics</h1>
+{% endblock %} {% block main %}
+<div class="text-center mb-4"><button onclick="clearStorage()" class="btn btn-danger">Clear</button></div>
+<table class="table table-striped table-hover table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Paper</th>
+      <th scope="col">Score</th>
+    </tr>
+  </thead>
+  <tbody id="scores"></tbody>
+</table>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $('#statistics-table').DataTable();
-    });
+  const scores = document.getElementById("scores");
+
+  Object.keys(localStorage).forEach((key, index) => {
+    const row = scores.insertRow();
+    const [cell1, cell2, cell3] = Array.from({ length: 3 }, () =>
+      row.insertCell()
+    );
+
+    cell1.textContent = index + 1;
+    cell2.textContent = key;
+    cell3.textContent = `${localStorage.getItem(key)}%`;
+  });
+
+  function clearStorage() {
+    localStorage.clear();
+    location.reload();
+  }
 </script>
 {% endblock %}
