@@ -3,18 +3,20 @@
 {% endblock %} {% block header %}
 <h1 id="title" class="fw-bold">Question 1</h1>
 {% endblock %} {% block main %}
-<script
-  src="https://mozilla.github.io/pdf.js/build/pdf.mjs"
-  type="module"
-></script>
 <script>
   var correctAnswers = {{ answers | tojson | safe }};
 </script>
 
 <form action="/pdf_score" id="form" method="POST">
-  <input hidden type="text" id="user-answers" name="user_answers" value="">
-  <input hidden type="text" id="paper-name" name="paper_name" value="">
-  <input hidden type="text" id="correct-answers" name="correct_answers" value="">
+  <input hidden type="text" id="user-answers" name="user_answers" value="" />
+  <input hidden type="text" id="paper-name" name="paper_name" value="" />
+  <input
+    hidden
+    type="text"
+    id="correct-answers"
+    name="correct_answers"
+    value=""
+  />
 </form>
 
 <div class="text-center mb-3">
@@ -59,20 +61,26 @@
     D
   </button>
 </div>
-<p id="incorrect-answer" style="display: none;" class="alert alert-danger">Incorrect!</p>
-<p id="correct-answer" style="display: none;" class="alert alert-success">Correct!</p>
+<p id="incorrect-answer" style="display: none" class="alert alert-danger">
+  Incorrect!
+</p>
+<p id="correct-answer" style="display: none" class="alert alert-success">
+  Correct!
+</p>
 
-<div class="text-center">
+<!-- <div class="text-center">
   <button class="btn btn-primary" id="prev">←</button>
   <button class="btn btn-primary" id="next">→</button>
   <button class="btn btn-success" id="zoominbutton" type="button">+</button>
   <button class="btn btn-success" id="zoomoutbutton" type="button">-</button>
-</div>
-<div
-  class="border border-2 border-info rounded-3 container mt-2"
-  style="overflow: scroll"
->
-  <canvas id="the-canvas" style="overflow: scroll"></canvas>
+</div> -->
+
+<div class="embed-responsive embed-responsive-16by9 mt-3" style="height: 500px;">
+  <iframe
+    class="border border-2 border-info rounded-3 w-100 h-100"
+    id="canvas"
+    src=""
+  ></iframe>
 </div>
 
 <script src="../static/js/pdf.js" async></script>

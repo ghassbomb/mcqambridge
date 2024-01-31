@@ -35,14 +35,20 @@ function toPdfScore() {
 
   form.submit();
 }
+var qpName = document.querySelector('title').textContent.replace('ms', 'qp')
+var url = `https://pastpapers.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/${qpName}.pdf`;
 
-// PDF Rendering
-var url = "../static/pdf/qp.pdf";
+document.getElementById('canvas').src = url;
+
+
+// PDF Rendering (disabled because of download restrictions)
+/*
+const workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
 var pdfScale = 1;
 var { pdfjsLib } = globalThis;
 
-pdfjsLib.GlobalWorkerOptions.workerSrc =
-  "https://mozilla.github.io/pdf.js/build/pdf.worker.mjs";
+pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
+
 
 var pdfDoc = null,
   pageNum = 1,
@@ -123,4 +129,4 @@ pdfjsLib.getDocument(url).promise.then(function (pdfDoc_) {
   pdfDoc = pdfDoc_;
 
   renderPage(pageNum);
-});
+}); */

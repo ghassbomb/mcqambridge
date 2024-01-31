@@ -24,10 +24,6 @@ function handleSubjectChange() {
     "0620",
     "0610",
     "0653",
-    "5090",
-    "5070",
-    "5054",
-    "5129",
   ].includes(subjectElement.value);
 
   isAsAlevel = false;
@@ -70,7 +66,7 @@ function handleMonthChange() {
   ) {
     disableOptions(false, false, true);
   } else if (subjectElement.value === "2281" && monthElement.value === "w") {
-    disableOptions(false, false, false);
+    disableOptions(true, false, false);
   } else if (
     subjectGroup === "AS and A Levels" &&
     alevelElement.value == "as-level" &&
