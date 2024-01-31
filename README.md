@@ -13,9 +13,8 @@
         MCQambridge is an automated MCQ past paper solving application for
         Cambridge A-levels & IGCSE. I created it to simplify the process of checking
         answers, calculating scores, and percentages. It was created using
-        Python and the web development trio.
+        Python and the web development trio. You can access it <a href="https://ghassbomb.pythonanywhere.com">here</a> or you can <a href="#installation--usage">host it yourself</a>. (I would appreciate if you hosted it locally, since my pythonanywhere site has limited bandwith; it's a simple five-step process!) 
       </p>
-      <p>Currently, it supports all CAIE IGCSE/O/A level papers. I plan to add support for other variants, and maybe I'll even expand it to include structured questions. There is no website however, as I was unable to acquire free hosting that supports download requests for the QP and MS pdfs, so you'll have to host it yourself. It is an extremely simple <a href="#installation--usage">5-step process</a>, however.</p>
       
 ## Usage
 <p>To begin, you first select a paper. You can choose between every Cambridge paper released 2018 and onwards. Aside from the year, you can choose between: subject, a-level, month, level (core, or extended?), and variant. Once you've chosen a paper, press submit.</p>
