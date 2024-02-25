@@ -1,83 +1,104 @@
 {% extends 'base.html' %} {% block extra_head %}
 <title>{{ paper_name }}</title>
-{% endblock %} {% block header %}
-<h1 id="title" class="fw-bold">Question 1</h1>
-{% endblock %} {% block main %}
+{% endblock %} {% block header %} {% endblock %} {% block main %}
+<aside class="w-75">
+	<div class="mt-3" style="height: 80vh">
+		<object
+			data=""
+			type="application/pdf"
+			style="height: 80vh"
+			id="canvas"
+			class="border border-2 border-info rounded-3 w-100 h-100"
+		>
+			<p>
+				It appears you don't have a PDF plugin for this browser. No
+				biggie... you can
+				<a href="myfile.pdf">click here to download the PDF file.</a>
+			</p>
+		</object>
+	</div>
+</aside>
+<article class="w-25">
+	<h1 id="title" class="text-center fw-bold w-100">Question 1</h1>
+	<form action="/pdf_score" id="form" method="POST">
+		<input
+			hidden
+			type="text"
+			id="user-answers"
+			name="user_answers"
+			value=""
+		/>
+		<input hidden type="text" id="paper-name" name="paper_name" value="" />
+		<input
+			hidden
+			type="text"
+			id="correct-answers"
+			name="correct_answers"
+			value=""
+		/>
+	</form>
+	<p id="incorrect-answer" style="display: none" class="w-100 alert alert-danger">
+		Incorrect!
+	</p>
+	<p id="correct-answer" style="display: none" class="w-100 alert alert-success">
+		Correct!
+	</p>
+  <div class="text-center mb-3">
+    <div class="btn-group-vertical">
+      <button
+        class="btn btn-lg btn-primary"
+        type="submit"
+        name="user_answer"
+        onclick="answer('A')"
+        value="A"
+        class="answer-button"
+      >
+        A
+      </button>
+      <button
+        class="btn btn-lg btn-danger"
+        type="submit"
+        name="user_answer"
+        onclick="answer('B')"
+        value="B"
+        class="answer-button"
+      >
+        B
+      </button>
+      <button
+        class="btn btn-lg btn-success"
+        type="submit"
+        name="user_answer"
+        onclick="answer('C')"
+        value="C"
+        class="answer-button"
+      >
+        C
+      </button>
+      <button
+        class="btn btn-lg btn-warning"
+        type="submit"
+        name="user_answer"
+        onclick="answer('D')"
+        value="D"
+        class="answer-button"
+      >
+        D
+      </button>
+    </div>
+  </div>
+	
+
+	<!-- <div class="text-center">
+    <button class="btn btn-primary" id="prev">←</button>
+    <button class="btn btn-primary" id="next">→</button>
+    <button class="btn btn-success" id="zoominbutton" type="button">+</button>
+    <button class="btn btn-success" id="zoomoutbutton" type="button">-</button>
+  </div> -->
+</article>
 <script>
-  var correctAnswers = {{ answers | tojson | safe }};
+	var correctAnswers = {{ answers | tojson | safe }};
 </script>
-
-<form action="/pdf_score" id="form" method="POST">
-  <input hidden type="text" id="user-answers" name="user_answers" value="" />
-  <input hidden type="text" id="paper-name" name="paper_name" value="" />
-  <input
-    hidden
-    type="text"
-    id="correct-answers"
-    name="correct_answers"
-    value=""
-  />
-</form>
-
-<div class="text-center mb-3">
-  <button
-    class="btn btn-primary"
-    type="submit"
-    name="user_answer"
-    onclick="answer('A')"
-    value="A"
-    class="answer-button"
-  >
-    A
-  </button>
-  <button
-    class="btn btn-danger"
-    type="submit"
-    name="user_answer"
-    onclick="answer('B')"
-    value="B"
-    class="answer-button"
-  >
-    B
-  </button>
-  <button
-    class="btn btn-success"
-    type="submit"
-    name="user_answer"
-    onclick="answer('C')"
-    value="C"
-    class="answer-button"
-  >
-    C
-  </button>
-  <button
-    class="btn btn-warning"
-    type="submit"
-    name="user_answer"
-    onclick="answer('D')"
-    value="D"
-    class="answer-button"
-  >
-    D
-  </button>
-</div>
-<p id="incorrect-answer" style="display: none" class="alert alert-danger">
-  Incorrect!
-</p>
-<p id="correct-answer" style="display: none" class="alert alert-success">
-  Correct!
-</p>
-
-<!-- <div class="text-center">
-  <button class="btn btn-primary" id="prev">←</button>
-  <button class="btn btn-primary" id="next">→</button>
-  <button class="btn btn-success" id="zoominbutton" type="button">+</button>
-  <button class="btn btn-success" id="zoomoutbutton" type="button">-</button>
-</div> -->
-
-<div class="embed-responsive embed-responsive-16by9 mt-3" style="height: 700px;">
-  <embed class="border border-2 border-info rounded-3 w-100 h-100" id="canvas" src=""/> 
-</div>
 
 <script src="../static/js/pdf.js" async></script>
 {% endblock %}

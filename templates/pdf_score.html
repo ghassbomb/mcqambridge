@@ -3,35 +3,39 @@
 {% endblock %} {% block header %}
 <h1 class="fw-bold">Your Answers & Score!</h1>
 {% endblock %}{% block main %}
-<h2>Score</h2>
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Your Score</th>
-      <th scope="col">Total Questions</th>
-      <th scope="col">% Correct</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td id="score"></td>
-      <td id="total-questions"></td>
-      <td id="score-percent"></td>
-    </tr>
-  </tbody>
-</table>
-
-<h2>Answers</h2>
-<table class="table table-hover table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Your Answer</th>
-      <th scope="col">Correct Answer</th>
-    </tr>
-  </thead>
-  <tbody id="answers"></tbody>
-</table>
+<aside class="col d-none d-md-block"></aside>
+<article class="px-5 px-md-0 col">
+  <h2>Score</h2>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Your Score</th>
+        <th scope="col">Total Questions</th>
+        <th scope="col">% Correct</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="score"></td>
+        <td id="total-questions"></td>
+        <td id="score-percent"></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <h2>Answers</h2>
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Your Answer</th>
+        <th scope="col">Correct Answer</th>
+      </tr>
+    </thead>
+    <tbody id="answers"></tbody>
+  </table>
+</article>
+<aside class="col d-none d-md-block"></aside>
 
 <script>
   var correctAnswers ={{ correct_answers | tojson | safe }};

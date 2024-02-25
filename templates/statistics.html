@@ -3,18 +3,21 @@
 {% endblock %} {% block header %}
 <h1 class="fw-bold">Statistics</h1>
 {% endblock %} {% block main %}
-<div class="text-center mb-4"><button onclick="clearStorage()" class="btn btn-danger">Clear</button></div>
-<table class="table table-striped table-hover table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Paper</th>
-      <th scope="col">Score</th>
-    </tr>
-  </thead>
-  <tbody id="scores"></tbody>
-</table>
-
+<aside class="col d-none d-md-block"></aside>
+<article class="px-5 px-md-0 col">
+  <div class="text-center mb-4"><button onclick="clearStorage()" class="btn btn-danger">Clear</button></div>
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Paper</th>
+        <th scope="col">Score</th>
+      </tr>
+    </thead>
+    <tbody id="scores"></tbody>
+  </table>
+</article>
+<aside class="col d-none d-md-block"></aside>
 <script>
   const scores = document.getElementById("scores");
 

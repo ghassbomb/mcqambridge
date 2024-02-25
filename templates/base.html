@@ -7,9 +7,11 @@
     <div class="container-fluid">
       <header class="text-center mb-4 mt-5">{% block header %}{% endblock %}</header>
       <main class="row mb-3">
+        {% block main %}
         <aside class="col d-none d-md-block">{% block left_aside %}{% endblock %}</aside>
-        <article class="px-5 px-md-0 col">{% block main %}{% endblock %}</article>
+        <article class="px-5 px-md-0 col"></article>
         <aside class="col d-none d-md-block"></aside>
+        {% endblock %}
       </main>
       <footer class="row mb-3">{% include 'footer.html' %}</footer>
     </div>

@@ -1,16 +1,13 @@
 var userAnswers = [];
 var questionNumber = 0;
+var displayNumber = 1;
 const incorrectFeedback = document.getElementById("incorrect-answer");
 const correctFeedback = document.getElementById("correct-answer");
 const title = document.getElementById("title");
-const numOfQuestions = correctAnswers.length;
+const numOfQuestions = correctAnswers.length ;
 
 // Recording and checking answers
 function answer(option) {
-  if (questionNumber === numOfQuestions) {
-    toPdfScore();
-    return false;
-  }
   userAnswers[questionNumber] = option;
   if (option === correctAnswers[questionNumber]) {
     incorrectFeedback.style.display = "none";
@@ -19,8 +16,14 @@ function answer(option) {
     correctFeedback.style.display = "none";
     incorrectFeedback.style.display = "block";
   }
-  questionNumber = questionNumber + 1;
-  title.textContent = `Question ${questionNumber}`;
+  if (questionNumber === numOfQuestions - 1) {
+    toPdfScore();
+    return false;
+  }
+  questionNumber += 1;
+  displayNumber += 1;
+  title.textContent = `Question ${displayNumber}`;
+
 }
 
 function toPdfScore() {
@@ -39,7 +42,7 @@ var qpName = document.querySelector('title').textContent.replace('ms', 'qp')
 
 var url = `https://docs.google.com/viewer?url=https://pastpapers.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/${qpName}.pdf&embedded=true`;
 
-document.getElementById('canvas').src = url;
+document.getElementById('canvas').data = url;
 
 
 // PDF Rendering (disabled because of download restrictions)
