@@ -42,7 +42,7 @@ var qpName = document.querySelector('title').textContent.replace('ms', 'qp')
 
 var url = `https://docs.google.com/viewer?url=https://pastpapers.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/${qpName}.pdf&embedded=true`;
 
-document.getElementById('canvas').data = url;
+document.getElementById('canvas').src = url;
 
 
 // PDF Rendering (disabled because of download restrictions)

@@ -1,108 +1,167 @@
 {% extends 'base.html' %} {% block extra_head %}
 <title>Paper Selection</title>
-{% endblock %}{% block header %}<h1 class="fw-bold">Select Your Paper</h1>
-{% endblock %}{% block main %}
-<aside class="col d-none d-md-block">{% block left_aside %}{% endblock %}</aside>
+{% endblock %} {% block main %}
+<aside class="col d-none d-md-block"></aside>
 <article class="px-5 px-md-0 col">
-  <p hidden class="alert alert-danger" id="error-message"></p>
-  <form action="/pdf" method="POST" id="main-form">
-    <div class="form-container">
-      <div class="row mb-3">
-        <label class="form-label" for="subject">Subject</label>
-        <select name="subject" class="form-select" id="subject">
-          <option value="please-select" disabled="true" selected>
-            Please select a subject...
-          </option>
-          <optgroup label="IGCSE">
-            <option value="0455">Economics (0455)</option>
-            <option value="0610">Biology (0610)</option>
-            <option value="0620">Chemistry (0620)</option>
-            <option value="0625">Physics (0625)</option>
-            <option value="0653">Science Combined (0653)</option>
-          </optgroup>
-          <optgroup label="O Levels">
-            <option value="2281">Economics (2281)</option>
-            <option value="5054">Physics (5054)</option>
-            <option value="5070">Chemistry (5070)</option>
-            <option value="5090">Biology (5090)</option>
-            <option value="5129">Science Combined (5129)</option>
-          </optgroup>
-          <optgroup label="AS and A Levels">
-            <option value="9700">Biology (9700)</option>
-            <option value="9701">Chemistry (9701)</option>
-            <option value="9702">Physics (9702)</option>
-            <option value="9706">Accounting (9706)</option>
-            <option value="9708">Economics (9708)</option>
-          </optgroup>
-        </select>
-      </div>
-      <div class="row mb-3">
-        <label class="form-label" for="year">Year (18 - 23): <output id="rangecount" class="fw-bold">18</output>
-        </label>
-        <input type="range" class="form-range" name="year" id="year" min="18" max="23" value="18" step="1" oninput="document.getElementById('rangecount').value = this.value"/>
-      </div>
-      <div class="row mb-3" id="alevel">
-        <label class="form-label">A-Level</label>
-        <div class="radio-buttons">
-          <input type="radio" class="btn-check" name="alevel" id="as-level" value="as-level" />
-          <label class="btn btn-primary" for="as-level">AS</label>
-          <input type="radio" class="btn-check" name="alevel" id="a2-level" value="a2-level" />
-          <label class="btn btn-primary" for="a2-level" disabled="true">A2</label>
-        </div>
-      </div>
-      <div class="row mb-3" id="month">
-        <label class="form-label">Month</label>
-        <div class="radio-buttons">
-          <input class="btn-check" checked type="radio" id="m" value="m" name="month" />
-          <label class="btn btn-primary" for="m">Feb/March</label>
-          <input class="btn-check" type="radio" id="s" value="s" name="month" />
-          <label class="btn btn-primary" for="s">May/June</label>
-          <input class="btn-check" type="radio" id="w" value="w" name="month" />
-          <label class="btn btn-primary" for="w">Oct/Nov</label>
-        </div>
-      </div>
-      <div class="row mb-3" id="level">
-        <label class="form-label">Level</label>
-        <div class="radio-buttons">
-          <input
-          class="btn-check" 
-            type="radio"
-            name="level"
-            id="core"
-            value="1"
-            required
-            checked="checked"
-          />
-          <label class="btn btn-primary" for="core">Core</label>
-          <input class="btn-check" type="radio" name="level" id="extended" value="2" />
-          <label class="btn btn-primary" for="extended" disabled="true"
-            >Extended</label
-          >
-        </div>
-      </div>
-      <div class="row mb-4" id="variant">
-        <label class="form-label">Variant</label>
-        <div class="radio-buttons">
-          <input class="btn-check" type="radio" name="variant" id="one" value="1" />
-          <label class="btn btn-primary" for="one">1</label>
-          <input
-            class="btn-check"
-            type="radio"
-            name="variant"
-            id="two"
-            value="2"
-            required
-          />
-          <label class="btn btn-primary" for="two">2</label>
-          <input class="btn-check" type="radio" name="variant" id="three" value="3" />
-          <label class="btn btn-primary" for="three">3</label>
-        </div>
-      </div>
-      <div class="d-grid gap-2">
-        <input class="btn btn-success" type="submit" value="Submit" />
-      </div>
-    </div>
-  </form>
+	<h1 class="fw-bold text-center mb-3">Home</h1>
+	<p hidden class="alert alert-danger" id="error-message"></p>
+	<form action="/pdf" method="POST" id="main-form">
+		<div class="form-container">
+			<div class="row mb-3">
+				<label class="form-label fw-bold" htmlFor="subject"
+					>Subject</label
+				>
+				<select name="subject" class="form-select" id="subject">
+					<option value="please-select" selected disabled>
+						Please select a subject...
+					</option>
+					<optgroup label="IGCSE">
+						<option value="0455">Economics (0455)</option>
+						<option value="0610">Biology (0610)</option>
+						<option value="0620">Chemistry (0620)</option>
+						<option value="0625">Physics (0625)</option>
+						<option value="0653">Science Combined (0653)</option>
+					</optgroup>
+					<optgroup label="O Levels">
+						<option value="2281">Economics (2281)</option>
+						<option value="5054">Physics (5054)</option>
+						<option value="5070">Chemistry (5070)</option>
+						<option value="5090">Biology (5090)</option>
+						<option value="5129">Science Combined (5129)</option>
+					</optgroup>
+					<optgroup label="AS and A Levels">
+						<option value="9700">Biology (9700)</option>
+						<option value="9701">Chemistry (9701)</option>
+						<option value="9702">Physics (9702)</option>
+						<option value="9706">Accounting (9706)</option>
+						<option value="9708">Economics (9708)</option>
+					</optgroup>
+				</select>
+			</div>
+			<div class="row mb-3">
+				<label class="form-label fw-bold" for="year"
+					>Year (18 - 23)
+				</label>
+				<input
+					type="number"
+					class="form-number"
+					name="year"
+					id="year"
+					min="18"
+					max="23"
+				/>
+			</div>
+			<div class="row mb-3" id="alevel">
+				<label class="fw-bold form-label">A-Level</label>
+				<div class="radio-buttons">
+					<input
+						type="radio"
+						class="btn-check"
+						name="alevel"
+						id="as-level"
+						value="as-level"
+					/>
+					<label class="btn btn-primary" for="as-level">AS</label>
+					<input
+						type="radio"
+						class="btn-check"
+						name="alevel"
+						id="a2-level"
+						value="a2-level"
+					/>
+					<label class="btn btn-primary" for="a2-level" disabled
+						>A2</label
+					>
+				</div>
+			</div>
+			<div class="row mb-3" id="month">
+				<label class="fw-bold form-label">Month</label>
+				<div class="radio-buttons">
+					<input
+						class="btn-check"
+						type="radio"
+						id="m"
+						value="m"
+						name="month"
+					/>
+					<label class="btn btn-primary" for="m">Feb/March</label>
+					<input
+						class="btn-check"
+						type="radio"
+						id="s"
+						value="s"
+						name="month"
+					/>
+					<label class="btn btn-primary" for="s">May/June</label>
+					<input
+						class="btn-check"
+						type="radio"
+						id="w"
+						value="w"
+						name="month"
+					/>
+					<label class="btn btn-primary" for="w">Oct/Nov</label>
+				</div>
+			</div>
+			<div class="row mb-3" id="level">
+				<label class="fw-bold form-label">Level</label>
+				<div class="radio-buttons">
+					<input
+						class="btn-check"
+						type="radio"
+						name="level"
+						id="core"
+						value="1"
+						required
+					/>
+					<label class="btn btn-primary" for="core">Core</label>
+					<input
+						class="btn-check"
+						type="radio"
+						name="level"
+						id="extended"
+						value="2"
+					/>
+					<label class="btn btn-primary" for="extended"
+						>Extended</label
+					>
+				</div>
+			</div>
+			<div class="row mb-4" id="variant">
+				<label class="fw-bold form-label">Variant</label>
+				<div class="radio-buttons">
+					<input
+						class="btn-check"
+						type="radio"
+						name="variant"
+						id="one"
+						value="1"
+					/>
+					<label class="btn btn-primary" for="one">1</label>
+					<input
+						class="btn-check"
+						type="radio"
+						name="variant"
+						id="two"
+						value="2"
+						required
+					/>
+					<label class="btn btn-primary" for="two">2</label>
+					<input
+						class="btn-check"
+						type="radio"
+						name="variant"
+						id="three"
+						value="3"
+					/>
+					<label class="btn btn-primary" for="three">3</label>
+				</div>
+			</div>
+			<div class="d-grid gap-2">
+				<input class="btn btn-success" type="submit" value="Submit" />
+			</div>
+		</div>
+	</form>
 </article>
 <aside class="col d-none d-md-block"></aside>
 <script src="../static/js/index.js" async></script>

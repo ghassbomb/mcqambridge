@@ -1,40 +1,42 @@
 {% extends 'base.html' %} {% block extra_head %}
 <title>Statistics</title>
-{% endblock %} {% block header %}
-<h1 class="fw-bold">Statistics</h1>
 {% endblock %} {% block main %}
+
 <aside class="col d-none d-md-block"></aside>
 <article class="px-5 px-md-0 col">
-  <div class="text-center mb-4"><button onclick="clearStorage()" class="btn btn-danger">Clear</button></div>
-  <table class="table table-striped table-hover table-bordered">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Paper</th>
-        <th scope="col">Score</th>
-      </tr>
-    </thead>
-    <tbody id="scores"></tbody>
-  </table>
+	<h1 class="fw-bold text-center mb-3">Statistics</h1>
+	<div class="text-center mb-4">
+		<button onclick="clearStorage()" class="btn btn-danger">Clear</button>
+	</div>
+	<table class="table table-striped table-hover table-bordered">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Paper</th>
+				<th scope="col">Score</th>
+			</tr>
+		</thead>
+		<tbody id="scores"></tbody>
+	</table>
 </article>
 <aside class="col d-none d-md-block"></aside>
 <script>
-  const scores = document.getElementById("scores");
+	const scores = document.getElementById("scores");
 
-  Object.keys(localStorage).forEach((key, index) => {
-    const row = scores.insertRow();
-    const [cell1, cell2, cell3] = Array.from({ length: 3 }, () =>
-      row.insertCell()
-    );
+	Object.keys(localStorage).forEach((key, index) => {
+		const row = scores.insertRow();
+		const [cell1, cell2, cell3] = Array.from({ length: 3 }, () =>
+			row.insertCell(),
+		);
 
-    cell1.textContent = index + 1;
-    cell2.textContent = key;
-    cell3.textContent = `${localStorage.getItem(key)}%`;
-  });
+		cell1.textContent = index + 1;
+		cell2.textContent = key;
+		cell3.textContent = `${localStorage.getItem(key)}%`;
+	});
 
-  function clearStorage() {
-    localStorage.clear();
-    location.reload();
-  }
+	function clearStorage() {
+		localStorage.clear();
+		location.reload();
+	}
 </script>
 {% endblock %}
