@@ -40,7 +40,7 @@ function toPdfScore() {
 }
 var qpName = document.querySelector('title').textContent.replace('ms', 'qp')
 
-var url = `https://docs.google.com/viewer?url=https://pastpapers.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/${qpName}.pdf&embedded=true`;
+var url = `https://pastpapers.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/${qpName}.pdf`;
 
 document.getElementById('canvas').src = url;
 
